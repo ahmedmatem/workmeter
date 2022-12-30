@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "242185642745",
+    "project_id": "workmeter-c6f70",
+    "storage_bucket": "workmeter-c6f70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242185642745:android:b00ccc9a039ae517f1f828",
+        "android_client_info": {
+          "package_name": "com.ahmedmatem.android.workmeter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242185642745-vk398a4iodgbbus1q7n3acuicol160gj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmedmatem.android.workmeter",
+            "certificate_hash": "cb48f1c11681b52223d49a787b067ee32634183b"
+          }
+        },
+        {
+          "client_id": "242185642745-olh1it004n40a95csf2mfak0np9cipnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVL8bByMQ5esUAiuMV37uuZj-l0U72q6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242185642745-olh1it004n40a95csf2mfak0np9cipnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
