@@ -1,6 +1,8 @@
 package com.ahmedmatem.android.workmeter.data.login
 
+import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
+import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 
 /**
@@ -8,7 +10,7 @@ import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository(val localDataSource: LoginLocalDataSource) {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -25,15 +27,17 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun logout() {
         user = null
-        dataSource.logout()
+        localDataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    suspend fun login(username: String, password: String): Result<LoggedInUser> {
         // handle login
-        val result = dataSource.login(username, password)
+        val result = localDataSource.login(username, password)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)
+        } else if(result is Result.Error){
+            Log.d("DEBUG", "login: ${result.exception.message}")
         }
 
         return result
