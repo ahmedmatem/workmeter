@@ -26,6 +26,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
+    override fun onStart() {
+        super.onStart()
+        val user = auth.currentUser
+        if(user != null){
+            // TODO: reload
+            // reload()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
