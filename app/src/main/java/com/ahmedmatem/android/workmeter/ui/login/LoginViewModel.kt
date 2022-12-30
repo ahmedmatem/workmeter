@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import com.ahmedmatem.android.workmeter.data.LoginRepository
+import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.Result
 
 import com.ahmedmatem.android.workmeter.R

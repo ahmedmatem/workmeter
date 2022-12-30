@@ -1,5 +1,6 @@
-package com.ahmedmatem.android.workmeter.data
+package com.ahmedmatem.android.workmeter.data.login
 
+import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 
 /**
