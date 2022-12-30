@@ -15,14 +15,21 @@ import android.widget.Toast
 import com.ahmedmatem.android.workmeter.databinding.ActivityLoginBinding
 
 import com.ahmedmatem.android.workmeter.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = Firebase.auth
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
