@@ -11,15 +11,13 @@ class LoginLocalDataSource(private val userDao: UserDao) {
 
     suspend fun login(username: String, password: String): Result<LoggedInUser> {
         return try {
-            // TODO: handle loggedInUser authentication
             val user = userDao.getBy(username, password)
+
             if(user != null) {
                 Result.Success(LoggedInUser(user.uid, user.username))
             } else {
-                Result.Error(NullPointerException("User not exists."))
+                Result.Error(NullPointerException("No user found in the local db."))
             }
-//            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-
         } catch (e: Throwable) {
             Result.Error(IOException("Error logging in", e))
         }
