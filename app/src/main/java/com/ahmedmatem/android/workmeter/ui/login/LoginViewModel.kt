@@ -1,5 +1,6 @@
 package com.ahmedmatem.android.workmeter.ui.login
 
+import android.content.res.Resources.NotFoundException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +10,14 @@ import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.Result
 
 import com.ahmedmatem.android.workmeter.R
+import com.ahmedmatem.android.workmeter.data.login.local.User
+import com.ahmedmatem.android.workmeter.utils.await
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel (
+    private val loginRepository: LoginRepository,
+    private val auth: FirebaseAuth) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -19,15 +25,26 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
+    fun login(email: String, password: String) {
         viewModelScope.launch {
-            val result = loginRepository.login(username, password)
+            val result = loginRepository.login(email, password)
 
             if (result is Result.Success) {
                 _loginResult.value =
                     LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
             } else {
+                _loginResult.value = LoginResult(error = R.string.login_failed)
+            }
+        }
+    }
+
+    fun loginRemote(email: String, password: String){
+        viewModelScope.launch {
+            try {
+                val result = auth.signInWithEmailAndPassword(email, password).await()
+                loginRepository.saveUserInLocalDb(User(result.user!!.uid, email, password))
+                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = email))
+            } catch (e: Exception){
                 _loginResult.value = LoginResult(error = R.string.login_failed)
             }
         }

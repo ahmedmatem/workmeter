@@ -9,10 +9,10 @@ import androidx.room.Query
 @Dao
 interface UserDao {
     @Query("Select * from users where username like :username and password like :password limit 1")
-    suspend fun getBy(username: String, password: String): User
+    suspend fun getBy(username: String, password: String): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(vararg users: User)
+    suspend fun insert(vararg users: User)
 
     @Delete
     fun delete(vararg users: User)

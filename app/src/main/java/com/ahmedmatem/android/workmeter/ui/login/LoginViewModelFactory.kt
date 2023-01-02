@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.ahmedmatem.android.workmeter.data.WorkmeterDb
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
 import com.ahmedmatem.android.workmeter.data.login.LoginRepository
+import com.ahmedmatem.android.workmeter.data.login.local.LoginRemoteDataSource
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
@@ -20,8 +22,9 @@ class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Fa
                 loginRepository = LoginRepository(
                     localDataSource = LoginLocalDataSource(
                         userDao = WorkmeterDb.getInstance(context = context).userDao
-                    )
-                )
+                    ),
+                    remoteDataSource = LoginRemoteDataSource()
+                ), auth = FirebaseAuth.getInstance()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

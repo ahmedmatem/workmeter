@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -15,9 +16,11 @@ import android.widget.Toast
 import com.ahmedmatem.android.workmeter.databinding.ActivityLoginBinding
 
 import com.ahmedmatem.android.workmeter.R
+import com.ahmedmatem.android.workmeter.data.login.local.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.tasks.await
 
 class LoginActivity : AppCompatActivity() {
 
@@ -30,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = auth.currentUser
         if(user != null){
+            Log.d("DEBUG", "onStart: current user is ${user.uid}")
             // TODO: reload
             // reload()
         }
@@ -70,15 +74,18 @@ class LoginActivity : AppCompatActivity() {
 
             loading.visibility = View.GONE
             if (loginResult.error != null) {
+                Log.d("LOGIN", "Result of login - Error(${loginResult.error})")
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
+                Log.d("LOGIN", "Login success... ")
                 updateUiWithUser(loginResult.success)
             }
+
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+//            finish()
         })
 
         username.afterTextChanged {
@@ -126,8 +133,37 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, errorString, Toast.LENGTH_LONG).show()
     }
+
+//    private suspend fun remoteLogin(email: String, password: String){
+//        return try {
+//            val result = auth.signInWithEmailAndPassword(email, password).await()
+//            loginViewModel.saveUserInLocalDb(User(result.user!!.uid, email, password))
+//        } catch (e: Exception){
+//            showLoginFailed(R.string.login_failed)
+//        }
+//    }
+
+//    private fun loginRemote(email: String, password: String){
+//        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+//            if(task.isSuccessful){
+//                Log.d("LOGIN", "Remote login is succeeded. ")
+//                val fbUser = auth.currentUser
+//                if(fbUser != null) {
+//                    val user = User(uid = fbUser.uid, username = email, password = password)
+//                    loginViewModel.saveUserInLocalDb(user)
+//                    updateUiWithUser(LoggedInUserView(displayName = user.username))
+//                }
+//            } else {
+//                Log.d("LOGIN", "Remote login failed... ")
+//                Log.d("LOGIN", "Exception: ${task.exception?.message} ")
+//                Log.d("LOGIN", "Result: ${task.result.toString()} ")
+//                // If login fails, display a message to the user
+//                showLoginFailed(R.string.login_failed)
+//            }
+//        }
+//    }
 }
 
 /**
