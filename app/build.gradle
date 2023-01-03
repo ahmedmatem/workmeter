@@ -67,4 +67,13 @@ dependencies {
 
     // Kotlin coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+    // Koin main features for Android
+    implementation "io.insert-koin:koin-android:$koin_android_version"
+    // Koin - Java Compatibility
+    implementation "io.insert-koin:koin-android-compat:$koin_android_version"
+    // Koin - Jetpack WorkManager
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_android_version"
+    // Koin - Navigation Graph
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_android_version"
 }
