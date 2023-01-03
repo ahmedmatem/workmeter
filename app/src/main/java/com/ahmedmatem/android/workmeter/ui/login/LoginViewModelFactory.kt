@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ahmedmatem.android.workmeter.data.WorkmeterDb
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
 import com.ahmedmatem.android.workmeter.data.login.LoginRepository
-import com.ahmedmatem.android.workmeter.data.login.local.LoginRemoteDataSource
+import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
 import com.google.firebase.auth.FirebaseAuth
 
 /**

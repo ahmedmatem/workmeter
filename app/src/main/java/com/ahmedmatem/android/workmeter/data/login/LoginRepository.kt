@@ -4,7 +4,7 @@ import android.content.res.Resources.NotFoundException
 import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
-import com.ahmedmatem.android.workmeter.data.login.local.LoginRemoteDataSource
+import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
 import com.ahmedmatem.android.workmeter.data.login.local.User
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,8 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginRepository(
     private val localDataSource: LoginLocalDataSource,
-    private val remoteDataSource: LoginRemoteDataSource) {
+    private val remoteDataSource: LoginRemoteDataSource
+) {
 
     private val coroutineContext: CoroutineContext = Dispatchers.IO
 
