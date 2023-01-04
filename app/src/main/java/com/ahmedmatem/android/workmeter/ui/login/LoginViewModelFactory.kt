@@ -24,7 +24,7 @@ class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Fa
                         userDao = WorkmeterDb.getInstance(context = context).userDao
                     ),
                     remoteDataSource = LoginRemoteDataSource()
-                ), auth = FirebaseAuth.getInstance()
+                )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

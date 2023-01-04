@@ -1,6 +1,5 @@
 package com.ahmedmatem.android.workmeter.ui.login
 
-import android.content.res.Resources.NotFoundException
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,10 +13,12 @@ import com.ahmedmatem.android.workmeter.data.login.local.User
 import com.ahmedmatem.android.workmeter.utils.await
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 class LoginViewModel (
-    private val loginRepository: LoginRepository,
-    private val auth: FirebaseAuth) : ViewModel() {
+    private val loginRepository: LoginRepository) : ViewModel() {
+
+    private val auth: FirebaseAuth by inject(FirebaseAuth::class.java)
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
