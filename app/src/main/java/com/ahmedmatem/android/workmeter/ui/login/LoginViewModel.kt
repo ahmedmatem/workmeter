@@ -9,7 +9,7 @@ import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.Result
 
 import com.ahmedmatem.android.workmeter.R
-import com.ahmedmatem.android.workmeter.data.login.local.User
+import com.ahmedmatem.android.workmeter.data.model.User
 import com.ahmedmatem.android.workmeter.utils.await
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch

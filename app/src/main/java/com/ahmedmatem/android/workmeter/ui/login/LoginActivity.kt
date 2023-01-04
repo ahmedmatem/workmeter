@@ -1,6 +1,5 @@
 package com.ahmedmatem.android.workmeter.ui.login
 
-import android.app.Activity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -15,12 +14,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.ahmedmatem.android.workmeter.databinding.ActivityLoginBinding
 
-import com.ahmedmatem.android.workmeter.R
-import com.ahmedmatem.android.workmeter.data.login.local.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
 
 class LoginActivity : AppCompatActivity() {
 

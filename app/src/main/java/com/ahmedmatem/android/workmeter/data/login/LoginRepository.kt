@@ -5,7 +5,7 @@ import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
 import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
-import com.ahmedmatem.android.workmeter.data.login.local.User
+import com.ahmedmatem.android.workmeter.data.model.User
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

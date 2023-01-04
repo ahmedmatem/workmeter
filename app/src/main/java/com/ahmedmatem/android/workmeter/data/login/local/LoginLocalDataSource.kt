@@ -3,10 +3,8 @@ package com.ahmedmatem.android.workmeter.data.login.local
 import android.content.res.Resources.NotFoundException
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.ahmedmatem.android.workmeter.data.model.User
 import java.io.IOException
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
