@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 updateUiWithUser(loginResult.success)
             }
 
-            setResult(Activity.RESULT_OK)
+//            setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
 //            finish()
@@ -122,48 +122,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_LONG).show()
     }
-
-//    private suspend fun remoteLogin(email: String, password: String){
-//        return try {
-//            val result = auth.signInWithEmailAndPassword(email, password).await()
-//            loginViewModel.saveUserInLocalDb(User(result.user!!.uid, email, password))
-//        } catch (e: Exception){
-//            showLoginFailed(R.string.login_failed)
-//        }
-//    }
-
-//    private fun loginRemote(email: String, password: String){
-//        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-//            if(task.isSuccessful){
-//                Log.d("LOGIN", "Remote login is succeeded. ")
-//                val fbUser = auth.currentUser
-//                if(fbUser != null) {
-//                    val user = User(uid = fbUser.uid, username = email, password = password)
-//                    loginViewModel.saveUserInLocalDb(user)
-//                    updateUiWithUser(LoggedInUserView(displayName = user.username))
-//                }
-//            } else {
-//                Log.d("LOGIN", "Remote login failed... ")
-//                Log.d("LOGIN", "Exception: ${task.exception?.message} ")
-//                Log.d("LOGIN", "Result: ${task.result.toString()} ")
-//                // If login fails, display a message to the user
-//                showLoginFailed(R.string.login_failed)
-//            }
-//        }
-//    }
 }
 
 /**
