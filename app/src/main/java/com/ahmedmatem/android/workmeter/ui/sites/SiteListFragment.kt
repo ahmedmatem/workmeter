@@ -22,6 +22,9 @@ class SiteListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this).get(SiteListViewModel::class.java)
+
+        viewModel.loadSites("fTHD4K3jCJhmAVyoK1UiNoRMDe32")
+
         return inflater.inflate(R.layout.fragment_site_list, container, false)
     }
 

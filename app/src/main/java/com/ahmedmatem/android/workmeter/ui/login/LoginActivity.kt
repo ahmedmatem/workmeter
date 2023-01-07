@@ -1,5 +1,6 @@
 package com.ahmedmatem.android.workmeter.ui.login
 
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import com.ahmedmatem.android.workmeter.databinding.ActivityLoginBinding
+import com.ahmedmatem.android.workmeter.ui.MainActivity
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -119,8 +121,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
 
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
