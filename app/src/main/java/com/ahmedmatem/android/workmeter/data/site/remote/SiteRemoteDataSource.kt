@@ -18,13 +18,8 @@ class SiteRemoteDataSource {
             val siteRefResponse = db.collection("users/${user.displayName}/sites").get().await()
             val sites = siteRefResponse.mapNotNull { document ->
                 val siteResponse = (document.data["siteRef"] as DocumentReference).get().await()
-                siteResponse?.let { siteDoc ->
-                    Site(
-                        siteDoc.id,
-                        user.userId,
-                        siteDoc["name"].toString(),
-                        siteDoc["postCode"].toString()
-                    )
+                siteResponse?.let { doc ->
+                    Site(doc.id, doc["name"].toString(),  doc["postCode"].toString())
                 }
             }
             emit(Result.Success(data = sites))

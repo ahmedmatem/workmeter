@@ -17,7 +17,4 @@ interface SiteDao {
 
     @Delete
     fun delete(vararg sites: Site)
-
-    @Query("SELECT * FROM site WHERE user_id = :userId")
-    fun getUserSites(userId: String): List<Site>
 }
