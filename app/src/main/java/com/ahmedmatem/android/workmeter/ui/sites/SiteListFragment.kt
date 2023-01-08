@@ -13,6 +13,7 @@ import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 
 class SiteListFragment : BaseFragment() {
 
+    private val args: SiteListFragmentArgs by navArgs()
     override lateinit var viewModel: SiteListViewModel
 
     override fun onCreateView(
@@ -20,6 +21,7 @@ class SiteListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this)[SiteListViewModel::class.java]
+        Log.d("DEBUG", "onCreateView: on site fragment args is: ${args.loggedInUserArg}")
 
         viewModel.loadSites(
             LoggedInUser("fTHD4K3jCJhmAVyoK1UiNoRMDe32", "ahmedmatem@gmail.com")

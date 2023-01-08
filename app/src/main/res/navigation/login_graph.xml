@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_login_form" >
         <action
             android:id="@+id/action_loginFormFragment_to_main_graph"
-            app:destination="@id/main_graph" />
+            app:destination="@id/main_graph">
+            <argument
+                android:name="loggedInUserArg"
+                app:argType="com.ahmedmatem.android.workmeter.data.model.LoggedInUser" />
+        </action>
     </fragment>
     <include app:graph="@navigation/main_graph" />
 </navigation>

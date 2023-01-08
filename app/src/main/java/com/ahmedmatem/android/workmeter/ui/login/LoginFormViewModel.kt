@@ -37,7 +37,8 @@ class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseVi
     }
 
     fun updateUiWithUser(){
-        navigationCommand.value = NavigationCommand.To(LoginFormFragmentDirections.actionLoginFormFragmentToMainGraph())
+        navigationCommand.value = NavigationCommand
+            .To(LoginFormFragmentDirections.actionLoginFormFragmentToMainGraph(_loginResult.value?.success!!))
     }
 
 //    fun loginRemote(email: String, password: String){
