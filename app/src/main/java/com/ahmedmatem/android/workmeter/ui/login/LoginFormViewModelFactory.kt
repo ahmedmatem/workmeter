@@ -7,18 +7,17 @@ import com.ahmedmatem.android.workmeter.data.WorkmeterDb
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
 import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
-import com.google.firebase.auth.FirebaseAuth
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
  * Required given LoginViewModel has a non-empty constructor
  */
-class LoginViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+class LoginFormViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(
+        if (modelClass.isAssignableFrom(LoginFormViewModel::class.java)) {
+            return LoginFormViewModel(
                 loginRepository = LoginRepository(
                     localDataSource = LoginLocalDataSource(
                         userDao = WorkmeterDb.getInstance(context = context).userDao

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/loginFormFragment">
+    <fragment
+        android:id="@+id/loginFormFragment"
+        android:name="com.ahmedmatem.android.workmeter.ui.login.LoginFormFragment"
+        android:label="fragment_login_form"
+        tools:layout="@layout/fragment_login_form" >
+        <action
+            android:id="@+id/action_loginFormFragment_to_main_graph"
+            app:destination="@id/main_graph" />
+    </fragment>
+    <include app:graph="@navigation/main_graph" />
+</navigation>

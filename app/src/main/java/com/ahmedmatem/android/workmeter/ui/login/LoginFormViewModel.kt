@@ -2,22 +2,20 @@ package com.ahmedmatem.android.workmeter.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.Result
 
 import com.ahmedmatem.android.workmeter.R
+import com.ahmedmatem.android.workmeter.base.BaseViewModel
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
-class LoginViewModel (
-    private val loginRepository: LoginRepository) : ViewModel() {
-
-    private val auth: FirebaseAuth by inject(FirebaseAuth::class.java)
+class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -36,6 +34,10 @@ class LoginViewModel (
                 _loginResult.value = LoginResult(error = R.string.login_failed)
             }
         }
+    }
+
+    fun updateUiWithUser(){
+        navigationCommand.value = NavigationCommand.To(LoginFormFragmentDirections.actionLoginFormFragmentToMainGraph())
     }
 
 //    fun loginRemote(email: String, password: String){
