@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
-import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 
 class SiteListFragment : BaseFragment() {
 
@@ -23,9 +22,7 @@ class SiteListFragment : BaseFragment() {
         viewModel = ViewModelProvider(this)[SiteListViewModel::class.java]
         Log.d("DEBUG", "onCreateView: on site fragment args is: ${args.loggedInUserArg}")
 
-        viewModel.loadSites(
-            LoggedInUser("fTHD4K3jCJhmAVyoK1UiNoRMDe32", "ahmedmatem@gmail.com")
-        )
+        viewModel.loadSites(args.loggedInUserArg)
 
         return inflater.inflate(R.layout.fragment_site_list, container, false)
     }
