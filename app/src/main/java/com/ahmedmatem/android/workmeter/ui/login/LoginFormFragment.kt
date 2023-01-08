@@ -44,7 +44,7 @@ class LoginFormFragment : BaseFragment() {
             LoginFormViewModelFactory(requireContext())
         )[LoginFormViewModel::class.java]
 
-        binding = FragmentLoginFormBinding.inflate(layoutInflater)
+        binding = FragmentLoginFormBinding.inflate(inflater)
 
         val username = binding.username
         val password = binding.password
@@ -118,6 +118,7 @@ class LoginFormFragment : BaseFragment() {
         super.onStart()
         val user = auth.currentUser
         if(user != null){
+            binding.loading.visibility = View.VISIBLE
             Log.d("DEBUG", "onStart: User with id=${user.uid} already logged in.")
             viewModel.updateUiWithUser(user)
         }
