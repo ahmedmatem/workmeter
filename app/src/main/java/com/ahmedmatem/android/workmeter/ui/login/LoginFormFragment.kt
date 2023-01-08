@@ -39,7 +39,10 @@ class LoginFormFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this, LoginFormViewModelFactory(requireContext()))[LoginFormViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            LoginFormViewModelFactory(requireContext())
+        )[LoginFormViewModel::class.java]
 
         binding = FragmentLoginFormBinding.inflate(layoutInflater)
 

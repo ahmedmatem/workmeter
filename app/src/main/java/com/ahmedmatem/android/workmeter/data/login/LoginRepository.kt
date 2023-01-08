@@ -62,6 +62,10 @@ class LoginRepository(
         }
     }
 
+    suspend fun getUserFromLocalDb(uid: String) : User?{
+        return localDataSource.getUserBy(uid)
+    }
+
 //    suspend fun saveUserInLocalDb(user: User){
 //        Log.d("LOGIN", "Save user(${user.uid}) in local database. ")
 //        setLoggedInUser(LoggedInUser(userId = user.uid, displayName = user.username))

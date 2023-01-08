@@ -13,6 +13,9 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE username LIKE :username and password LIKE :password LIMIT 1")
     suspend fun getBy(username: String, password: String): User?
 
+    @Query("SELECT * FROM user WHERE uid LIKE :uid LIMIT 1")
+    suspend fun getBy(uid: String): User?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg users: User)
 

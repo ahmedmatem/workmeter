@@ -36,15 +36,18 @@ class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseVi
     }
 
     fun updateUiWithUser(user: FirebaseUser? = null){
-        val loggedInUser = if(user == null){
-            _loginResult.value?.success!!
-        } else {
-            LoggedInUser(user.uid, user.displayName!!)
+        viewModelScope.launch {
+            val loggedInUser = if (user == null) {
+                _loginResult.value?.success!!
+            } else {
+                val userFromLocal = loginRepository.getUserFromLocalDb(user.uid)
+                LoggedInUser(user.uid, userFromLocal?.username!!)
+            }
+            navigationCommand.value = NavigationCommand.To(
+                LoginFormFragmentDirections
+                    .actionLoginFormFragmentToMainGraph(loggedInUser)
+            )
         }
-        navigationCommand.value = NavigationCommand.To(
-            LoginFormFragmentDirections
-                .actionLoginFormFragmentToMainGraph(loggedInUser)
-        )
     }
 
     fun loginDataChanged(username: String, password: String) {

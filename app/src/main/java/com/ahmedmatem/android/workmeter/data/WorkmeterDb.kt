@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import com.ahmedmatem.android.workmeter.data.login.local.User
 import com.ahmedmatem.android.workmeter.data.login.local.UserDao
 import com.ahmedmatem.android.workmeter.data.site.local.Site
+import com.ahmedmatem.android.workmeter.data.site.local.SiteDao
 
 @Database(
     entities = [User::class, Site::class],
@@ -14,6 +15,7 @@ import com.ahmedmatem.android.workmeter.data.site.local.Site
 )
 abstract class WorkmeterDb: RoomDatabase() {
     abstract val userDao: UserDao
+    abstract val siteDao: SiteDao
 
     companion object {
         @Volatile

@@ -23,7 +23,11 @@ class LoginLocalDataSource(private val userDao: UserDao) {
         }
     }
 
-    suspend fun save(user: User){
+    suspend fun getUserBy(uid: String) : User? {
+        return userDao.getBy(uid)
+    }
+
+    suspend fun save(user: User) {
         userDao.insert(user)
     }
 
