@@ -10,6 +10,8 @@ import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
+import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 
 class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseViewModel() {
@@ -33,10 +35,15 @@ class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseVi
         }
     }
 
-    fun updateUiWithUser(){
+    fun updateUiWithUser(user: FirebaseUser? = null){
+        val loggedInUser = if(user == null){
+            _loginResult.value?.success!!
+        } else {
+            LoggedInUser(user.uid, user.displayName!!)
+        }
         navigationCommand.value = NavigationCommand.To(
             LoginFormFragmentDirections
-                .actionLoginFormFragmentToMainGraph(_loginResult.value?.success!!)
+                .actionLoginFormFragmentToMainGraph(loggedInUser)
         )
     }
 

@@ -115,9 +115,8 @@ class LoginFormFragment : BaseFragment() {
         super.onStart()
         val user = auth.currentUser
         if(user != null){
-            Log.d("DEBUG", "onStart: current user is ${user.uid}")
-            // TODO: reload
-            // reload()
+            Log.d("DEBUG", "onStart: User with id=${user.uid} already logged in.")
+            viewModel.updateUiWithUser(user)
         }
     }
 
