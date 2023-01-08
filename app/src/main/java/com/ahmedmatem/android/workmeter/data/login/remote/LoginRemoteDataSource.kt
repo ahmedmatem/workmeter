@@ -1,18 +1,11 @@
 package com.ahmedmatem.android.workmeter.data.login.remote
 
 import android.content.res.Resources.NotFoundException
-import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
-import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
-import com.ahmedmatem.android.workmeter.ui.login.LoggedInUserView
-import com.ahmedmatem.android.workmeter.ui.login.LoginResult
 import com.ahmedmatem.android.workmeter.utils.await
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
-import kotlin.coroutines.CoroutineContext
 
 class LoginRemoteDataSource {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()

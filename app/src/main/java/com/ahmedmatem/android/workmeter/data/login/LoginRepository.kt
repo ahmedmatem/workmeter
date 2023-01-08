@@ -1,6 +1,5 @@
 package com.ahmedmatem.android.workmeter.data.login
 
-import android.content.res.Resources.NotFoundException
 import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
@@ -9,7 +8,6 @@ import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -64,11 +62,11 @@ class LoginRepository(
         }
     }
 
-    suspend fun saveUserInLocalDb(user: User){
-        Log.d("LOGIN", "Save user(${user.uid}) in local database. ")
-        setLoggedInUser(LoggedInUser(userId = user.uid, displayName = user.username))
-        localDataSource.save(user = user)
-    }
+//    suspend fun saveUserInLocalDb(user: User){
+//        Log.d("LOGIN", "Save user(${user.uid}) in local database. ")
+//        setLoggedInUser(LoggedInUser(userId = user.uid, displayName = user.username))
+//        localDataSource.save(user = user)
+//    }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
         this.loggedInUser = loggedInUser
@@ -76,13 +74,13 @@ class LoginRepository(
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    private fun handleError(error: Result.Error){
-        when(error.exception){
-            is NotFoundException -> {
-                // Start remote login
-            }
-            is IOException -> {}
-            else -> {}
-        }
-    }
+//    private fun handleError(error: Result.Error){
+//        when(error.exception){
+//            is NotFoundException -> {
+//                // Start remote login
+//            }
+//            is IOException -> {}
+//            else -> {}
+//        }
+//    }
 }

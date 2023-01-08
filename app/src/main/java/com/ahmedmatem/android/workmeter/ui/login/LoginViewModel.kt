@@ -9,8 +9,7 @@ import com.ahmedmatem.android.workmeter.data.login.LoginRepository
 import com.ahmedmatem.android.workmeter.data.Result
 
 import com.ahmedmatem.android.workmeter.R
-import com.ahmedmatem.android.workmeter.data.login.local.User
-import com.ahmedmatem.android.workmeter.utils.await
+import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
@@ -32,24 +31,24 @@ class LoginViewModel (
 
             if (result is Result.Success) {
                 _loginResult.value =
-                    LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+                    LoginResult(result.data)
             } else {
                 _loginResult.value = LoginResult(error = R.string.login_failed)
             }
         }
     }
 
-    fun loginRemote(email: String, password: String){
-        viewModelScope.launch {
-            try {
-                val result = auth.signInWithEmailAndPassword(email, password).await()
-                loginRepository.saveUserInLocalDb(User(result.user!!.uid, email, password))
-                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = email))
-            } catch (e: Exception){
-                _loginResult.value = LoginResult(error = R.string.login_failed)
-            }
-        }
-    }
+//    fun loginRemote(email: String, password: String){
+//        viewModelScope.launch {
+//            try {
+//                val result = auth.signInWithEmailAndPassword(email, password).await()
+//                loginRepository.saveUserInLocalDb(User(result.user!!.uid, email, password))
+//                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = email))
+//            } catch (e: Exception){
+//                _loginResult.value = LoginResult(error = R.string.login_failed)
+//            }
+//        }
+//    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

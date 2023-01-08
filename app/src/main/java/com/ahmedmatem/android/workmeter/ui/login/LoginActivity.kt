@@ -13,12 +13,15 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.databinding.ActivityLoginBinding
 import com.ahmedmatem.android.workmeter.ui.MainActivity
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
+val LOGGED_IN_USER_KEY: String = "logged_in_user_key"
 
 class LoginActivity : AppCompatActivity() {
 
@@ -119,10 +122,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val displayName = model.displayName
-
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun updateUiWithUser(user: LoggedInUser) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(LOGGED_IN_USER_KEY, user)
+        }
+        startActivity(intent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
