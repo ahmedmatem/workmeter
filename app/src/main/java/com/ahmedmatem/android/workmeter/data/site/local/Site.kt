@@ -3,6 +3,7 @@ package com.ahmedmatem.android.workmeter.data.site.local
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.DocumentSnapshot
 
 @Entity
 data class Site(

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 
 class SiteListFragment : BaseFragment() {
 
@@ -23,7 +24,9 @@ class SiteListFragment : BaseFragment() {
     ): View? {
         viewModel = ViewModelProvider(this).get(SiteListViewModel::class.java)
 
-        viewModel.loadSites("fTHD4K3jCJhmAVyoK1UiNoRMDe32")
+        viewModel.loadSites(
+            LoggedInUser("fTHD4K3jCJhmAVyoK1UiNoRMDe32", "ahmedmatem@gmail.com")
+        )
 
         return inflater.inflate(R.layout.fragment_site_list, container, false)
     }
