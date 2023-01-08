@@ -10,10 +10,7 @@ import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
-import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 
 class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseViewModel() {
 
@@ -37,21 +34,11 @@ class LoginFormViewModel (private val loginRepository: LoginRepository) : BaseVi
     }
 
     fun updateUiWithUser(){
-        navigationCommand.value = NavigationCommand
-            .To(LoginFormFragmentDirections.actionLoginFormFragmentToMainGraph(_loginResult.value?.success!!))
+        navigationCommand.value = NavigationCommand.To(
+            LoginFormFragmentDirections
+                .actionLoginFormFragmentToMainGraph(_loginResult.value?.success!!)
+        )
     }
-
-//    fun loginRemote(email: String, password: String){
-//        viewModelScope.launch {
-//            try {
-//                val result = auth.signInWithEmailAndPassword(email, password).await()
-//                loginRepository.saveUserInLocalDb(User(result.user!!.uid, email, password))
-//                _loginResult.value = LoginResult(success = LoggedInUserView(displayName = email))
-//            } catch (e: Exception){
-//                _loginResult.value = LoginResult(error = R.string.login_failed)
-//            }
-//        }
-//    }
 
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {

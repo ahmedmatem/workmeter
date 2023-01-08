@@ -13,9 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
-import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.databinding.FragmentLoginFormBinding
 
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +22,7 @@ import com.google.firebase.ktx.Firebase
 
 const val LOGGED_IN_USER_KEY: String = "logged_in_user_key"
 
-class LoginFormFragment() : BaseFragment() {
+class LoginFormFragment : BaseFragment() {
 
     override lateinit var viewModel: LoginFormViewModel
 
@@ -40,7 +38,7 @@ class LoginFormFragment() : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewModel = ViewModelProvider(this, LoginFormViewModelFactory(requireContext()))[LoginFormViewModel::class.java]
 
         binding = FragmentLoginFormBinding.inflate(layoutInflater)
@@ -75,7 +73,6 @@ class LoginFormFragment() : BaseFragment() {
             if (loginResult.success != null) {
                 Log.d("LOGIN", "Login success... ")
                 viewModel.updateUiWithUser()
-//                updateUiWithUser(loginResult.success)
             }
         })
 
@@ -122,13 +119,6 @@ class LoginFormFragment() : BaseFragment() {
             // TODO: reload
             // reload()
         }
-    }
-
-    private fun updateUiWithUser(user: LoggedInUser) {
-//        val intent = Intent(this, MainActivity::class.java).apply {
-//            putExtra(LOGGED_IN_USER_KEY, user)
-//        }
-//        startActivity(intent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
