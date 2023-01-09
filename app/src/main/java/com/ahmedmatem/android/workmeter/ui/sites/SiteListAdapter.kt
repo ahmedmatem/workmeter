@@ -31,7 +31,8 @@ class SiteListAdapter(private val onClickListener: OnClickListener)
         : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: Site){
-            // TODO: bind layout here
+            binding.name.text = item.name
+            binding.postCode.text = item.postCode
         }
 
         companion object {

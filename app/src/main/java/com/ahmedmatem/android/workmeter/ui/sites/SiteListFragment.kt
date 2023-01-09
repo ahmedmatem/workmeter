@@ -34,8 +34,6 @@ class SiteListFragment : BaseFragment() {
             SiteListViewModelFactory(args)
         )[SiteListViewModel::class.java]
 
-        // TODO: Implement RecyclerView for site list
-
         viewModel.siteList.observe(viewLifecycleOwner, Observer {
             val siteList = it ?: return@Observer
 
