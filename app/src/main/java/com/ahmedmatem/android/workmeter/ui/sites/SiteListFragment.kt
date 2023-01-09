@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.databinding.FragmentSiteListBinding
 
 class SiteListFragment : BaseFragment() {
 
@@ -20,6 +22,13 @@ class SiteListFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val binding = FragmentSiteListBinding.inflate(inflater, container, false)
+        val adapter = SiteListAdapter(SiteListAdapter.OnClickListener{
+            // TODO: do something with site data
+        })
+        binding.siteRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.siteRecycler.adapter = adapter
+
         viewModel = ViewModelProvider(
             this,
             SiteListViewModelFactory(args)
@@ -29,11 +38,11 @@ class SiteListFragment : BaseFragment() {
 
         viewModel.siteList.observe(viewLifecycleOwner, Observer {
             val siteList = it ?: return@Observer
-            // TODO: Update UI with site list...
-            viewModel.showToast.value = "Site list was updated"
+
+            adapter.submitList(siteList)
         })
 
-        return inflater.inflate(R.layout.fragment_site_list, container, false)
+        return binding.root
     }
 
 }
