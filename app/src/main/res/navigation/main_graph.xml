@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/siteListFragment"
         android:name="com.ahmedmatem.android.workmeter.ui.sites.SiteListFragment"
-        android:label="fragment_site_list"
+        android:label="@string/site_list"
         tools:layout="@layout/fragment_site_list" >
         <argument
             android:name="loggedInUserArg"
