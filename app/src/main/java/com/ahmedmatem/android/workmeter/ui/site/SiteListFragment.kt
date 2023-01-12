@@ -1,15 +1,13 @@
-package com.ahmedmatem.android.workmeter.ui.sites
+package com.ahmedmatem.android.workmeter.ui.site
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentSiteListBinding
 

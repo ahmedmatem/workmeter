@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.ui.sites
+package com.ahmedmatem.android.workmeter.ui.site
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

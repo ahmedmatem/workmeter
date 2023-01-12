@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.ui.sites
+package com.ahmedmatem.android.workmeter.ui.site
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

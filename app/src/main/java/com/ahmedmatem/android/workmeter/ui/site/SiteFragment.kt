@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.ui.sites
+package com.ahmedmatem.android.workmeter.ui.site
 
 import android.os.Bundle
 import android.view.LayoutInflater

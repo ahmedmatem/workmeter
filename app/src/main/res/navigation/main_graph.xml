@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/siteListFragment"
-        android:name="com.ahmedmatem.android.workmeter.ui.sites.SiteListFragment"
+        android:name="com.ahmedmatem.android.workmeter.ui.site.SiteListFragment"
         android:label="@string/site_list"
         tools:layout="@layout/fragment_site_list" >
         <argument
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/siteFragment"
-        android:name="com.ahmedmatem.android.workmeter.ui.sites.SiteFragment"
+        android:name="com.ahmedmatem.android.workmeter.ui.site.SiteFragment"
         android:label="fragment_site"
         tools:layout="@layout/fragment_site" />
 </navigation>
