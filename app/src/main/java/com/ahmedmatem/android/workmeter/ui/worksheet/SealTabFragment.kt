@@ -24,6 +24,8 @@ class SealTabFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSealTabBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[SealTabViewModel::class.java]
+
         return binding.root
     }
 }

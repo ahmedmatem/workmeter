@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentSiteBinding
 
 class SiteFragment : BaseFragment() {
@@ -18,6 +19,12 @@ class SiteFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSiteBinding.inflate(inflater, container, false)
+
+        binding.fab.setOnClickListener {
+            viewModel.navigationCommand.value = NavigationCommand.To(
+                SiteFragmentDirections.actionSiteFragmentToWorksheetFragment()
+            )
+        }
 
         viewModel = ViewModelProvider(this)[SiteViewModel::class.java]
 

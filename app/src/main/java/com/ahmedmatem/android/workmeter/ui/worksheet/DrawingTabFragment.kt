@@ -25,6 +25,8 @@ class DrawingTabFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDrawingTabBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[DrawingTabViewModel::class.java]
+
         return binding.root
     }
 }
