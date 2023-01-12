@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.data.local.site
+package com.ahmedmatem.android.workmeter.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,6 +1,6 @@
 package com.ahmedmatem.android.workmeter.data.remote.site
 
-import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.model.Site
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.utils.await

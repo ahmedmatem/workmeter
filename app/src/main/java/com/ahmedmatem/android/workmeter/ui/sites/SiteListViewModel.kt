@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.data.repository.SiteRepository
-import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.model.Site
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 

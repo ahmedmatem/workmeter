@@ -2,7 +2,7 @@ package com.ahmedmatem.android.workmeter.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.model.Site
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.data.local.site.SiteLocalDataSource

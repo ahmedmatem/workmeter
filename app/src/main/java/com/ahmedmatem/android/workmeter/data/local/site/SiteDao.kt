@@ -6,6 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.ahmedmatem.android.workmeter.data.model.Site
 
 @Dao
 interface SiteDao {

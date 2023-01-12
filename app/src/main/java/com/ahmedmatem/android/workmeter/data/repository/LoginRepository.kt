@@ -3,7 +3,7 @@ package com.ahmedmatem.android.workmeter.data.repository
 import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.local.login.LoginLocalDataSource
-import com.ahmedmatem.android.workmeter.data.local.login.User
+import com.ahmedmatem.android.workmeter.data.model.User
 import com.ahmedmatem.android.workmeter.data.remote.login.LoginRemoteDataSource
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers

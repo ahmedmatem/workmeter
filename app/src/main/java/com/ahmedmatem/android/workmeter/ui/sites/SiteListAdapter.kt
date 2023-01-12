@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.model.Site
 import com.ahmedmatem.android.workmeter.databinding.SiteListItemBinding
 
 class SiteListAdapter(private val onClickListener: OnClickListener)

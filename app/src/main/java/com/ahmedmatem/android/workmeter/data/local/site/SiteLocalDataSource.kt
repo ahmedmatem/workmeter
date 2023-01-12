@@ -1,6 +1,7 @@
 package com.ahmedmatem.android.workmeter.data.local.site
 
 import androidx.lifecycle.LiveData
+import com.ahmedmatem.android.workmeter.data.model.Site
 import org.koin.java.KoinJavaComponent.inject
 
 class SiteLocalDataSource {

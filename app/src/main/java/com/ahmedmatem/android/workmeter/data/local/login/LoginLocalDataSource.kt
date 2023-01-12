@@ -3,6 +3,7 @@ package com.ahmedmatem.android.workmeter.data.local.login
 import android.content.res.Resources.NotFoundException
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
+import com.ahmedmatem.android.workmeter.data.model.User
 import java.io.IOException
 
 /**

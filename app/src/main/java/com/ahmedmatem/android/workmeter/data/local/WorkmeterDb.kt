@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ahmedmatem.android.workmeter.data.local.login.User
+import com.ahmedmatem.android.workmeter.data.model.User
 import com.ahmedmatem.android.workmeter.data.local.login.UserDao
-import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.model.Site
 import com.ahmedmatem.android.workmeter.data.local.site.SiteDao
 
 @Database(
