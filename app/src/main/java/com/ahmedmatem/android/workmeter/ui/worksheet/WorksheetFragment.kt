@@ -1,6 +1,5 @@
-package com.ahmedmatem.android.workmeter.ui.workrecord
+package com.ahmedmatem.android.workmeter.ui.worksheet
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,10 @@ import android.view.ViewGroup
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentWorkRecordBinding
 
-class WorkRecordFragment : BaseFragment() {
+class WorksheetFragment : BaseFragment() {
 
     private lateinit var binding: FragmentWorkRecordBinding
-    override lateinit var viewModel: WorkRecordViewModel
+    override lateinit var viewModel: WorksheetViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
