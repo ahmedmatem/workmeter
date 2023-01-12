@@ -10,4 +10,7 @@
     <string name="login_failed">"Login failed"</string>
 
     <string name="site_list">Site List</string>
+
+    <!-- content descriptions -->
+    <string name="add_worksheet_desc">Add worksheet</string>
 </resources>

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.data.site.SiteRepository
@@ -23,21 +24,9 @@ class SiteListViewModel(private val args: SiteListFragmentArgs) : BaseViewModel(
         }
     }
 
-//    fun loadSites(user: LoggedInUser){
-//        viewModelScope.launch {
-//            siteRepository.loadSites(user)
-//                .catch { exception ->
-//                    Log.d("Firestore", "loadSites error: ${exception.message}")
-//                    // notifyError(exception)
-//                }
-//                .collect { result ->
-//                    if(result is Result.Success){
-//                        Log.d("Firestore", "loadSites: ${result.data}")
-//                    }
-//                    if(result is Result.Error){
-//                        Log.d("Firestore", "loadSites error: ${result.exception.message}")
-//                    }
-//                }
-//        }
-//    }
+    fun navigateToSite(site: Site){
+        navigationCommand.value = NavigationCommand.To(
+            SiteListFragmentDirections.actionSiteListFragmentToSiteFragment()
+        )
+    }
 }

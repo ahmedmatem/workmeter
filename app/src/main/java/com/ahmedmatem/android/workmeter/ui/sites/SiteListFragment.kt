@@ -24,7 +24,7 @@ class SiteListFragment : BaseFragment() {
     ): View? {
         val binding = FragmentSiteListBinding.inflate(inflater, container, false)
         val adapter = SiteListAdapter(SiteListAdapter.OnClickListener{
-            // TODO: do something with site data
+            viewModel.navigateToSite(it)
         })
         binding.siteRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.siteRecycler.adapter = adapter
@@ -36,7 +36,6 @@ class SiteListFragment : BaseFragment() {
 
         viewModel.siteList.observe(viewLifecycleOwner, Observer {
             val siteList = it ?: return@Observer
-
             adapter.submitList(siteList)
         })
 
