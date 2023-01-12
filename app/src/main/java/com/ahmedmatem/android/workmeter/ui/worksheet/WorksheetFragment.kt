@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentWorksheetBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -32,9 +32,13 @@ class WorksheetFragment : BaseFragment() {
         tabCollectionAdapter = TabCollectionAdapter(this)
         binding.viewPager.adapter = tabCollectionAdapter
         // link tab_layout with view_pager and attach it
-//        TabLayoutMediator(binding.tabLayout, binding.pager){ tab, position ->
-//
-//        }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+            when(position){
+                0 -> tab.text = resources.getString(R.string.text_seal)
+                1 -> tab.text = resources.getString(R.string.text_drawing)
+                else -> throw IllegalArgumentException("Invalid position $position")
+            }
+        }.attach()
     }
 
     class TabCollectionAdapter(fragment: BaseFragment): FragmentStateAdapter(fragment){
@@ -42,11 +46,9 @@ class WorksheetFragment : BaseFragment() {
 
         override fun createFragment(position: Int): BaseFragment {
             return when(position){
-                0 -> SealTabFragment()
-                1 -> DrawingTabFragment()
-                else -> throw IllegalArgumentException(
-                    "Invalid tab collection position: position(${position})"
-                )
+                0 -> SealTabFragment.newInstance()
+                1 -> DrawingTabFragment.newInstance()
+                else -> throw IllegalArgumentException( "Invalid position: position(${position})"                )
             }
         }
     }
