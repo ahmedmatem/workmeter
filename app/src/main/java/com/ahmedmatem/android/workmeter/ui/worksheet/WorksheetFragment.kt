@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentWorkRecordBinding
 
@@ -20,5 +22,13 @@ class WorksheetFragment : BaseFragment() {
 
 
         return binding.root
+    }
+
+    class TabCollectionAdapter(fragment: BaseFragment): FragmentStateAdapter(fragment){
+        override fun getItemCount(): Int = 2
+
+        override fun createFragment(position: Int): BaseFragment {
+            TODO("Not yet implemented")
+        }
     }
 }
