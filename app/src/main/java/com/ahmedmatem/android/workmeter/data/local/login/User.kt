@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.data.login.local
+package com.ahmedmatem.android.workmeter.data.local.login
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

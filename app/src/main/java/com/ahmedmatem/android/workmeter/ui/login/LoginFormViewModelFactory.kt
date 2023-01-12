@@ -3,10 +3,10 @@ package com.ahmedmatem.android.workmeter.ui.login
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ahmedmatem.android.workmeter.data.WorkmeterDb
-import com.ahmedmatem.android.workmeter.data.login.local.LoginLocalDataSource
-import com.ahmedmatem.android.workmeter.data.login.LoginRepository
-import com.ahmedmatem.android.workmeter.data.login.remote.LoginRemoteDataSource
+import com.ahmedmatem.android.workmeter.data.local.WorkmeterDb
+import com.ahmedmatem.android.workmeter.data.local.login.LoginLocalDataSource
+import com.ahmedmatem.android.workmeter.data.repository.LoginRepository
+import com.ahmedmatem.android.workmeter.data.remote.login.LoginRemoteDataSource
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

@@ -1,18 +1,15 @@
 package com.ahmedmatem.android.workmeter.di.koin
 
-import androidx.navigation.navArgument
-import com.ahmedmatem.android.workmeter.data.WorkmeterDb
-import com.ahmedmatem.android.workmeter.data.login.local.UserDao
-import com.ahmedmatem.android.workmeter.data.site.SiteRepository
-import com.ahmedmatem.android.workmeter.data.site.local.SiteDao
-import com.ahmedmatem.android.workmeter.data.site.local.SiteLocalDataSource
-import com.ahmedmatem.android.workmeter.data.site.remote.SiteRemoteDataSource
-import com.ahmedmatem.android.workmeter.ui.sites.SiteListFragmentArgs
+import com.ahmedmatem.android.workmeter.data.local.WorkmeterDb
+import com.ahmedmatem.android.workmeter.data.local.login.UserDao
+import com.ahmedmatem.android.workmeter.data.repository.SiteRepository
+import com.ahmedmatem.android.workmeter.data.local.site.SiteDao
+import com.ahmedmatem.android.workmeter.data.local.site.SiteLocalDataSource
+import com.ahmedmatem.android.workmeter.data.remote.site.SiteRemoteDataSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val appModule = module {

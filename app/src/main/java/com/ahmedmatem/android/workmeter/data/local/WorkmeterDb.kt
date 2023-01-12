@@ -1,13 +1,13 @@
-package com.ahmedmatem.android.workmeter.data
+package com.ahmedmatem.android.workmeter.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ahmedmatem.android.workmeter.data.login.local.User
-import com.ahmedmatem.android.workmeter.data.login.local.UserDao
-import com.ahmedmatem.android.workmeter.data.site.local.Site
-import com.ahmedmatem.android.workmeter.data.site.local.SiteDao
+import com.ahmedmatem.android.workmeter.data.local.login.User
+import com.ahmedmatem.android.workmeter.data.local.login.UserDao
+import com.ahmedmatem.android.workmeter.data.local.site.Site
+import com.ahmedmatem.android.workmeter.data.local.site.SiteDao
 
 @Database(
     entities = [User::class, Site::class],

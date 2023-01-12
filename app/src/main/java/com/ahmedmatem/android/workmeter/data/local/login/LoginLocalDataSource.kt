@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.data.login.local
+package com.ahmedmatem.android.workmeter.data.local.login
 
 import android.content.res.Resources.NotFoundException
 import com.ahmedmatem.android.workmeter.data.Result

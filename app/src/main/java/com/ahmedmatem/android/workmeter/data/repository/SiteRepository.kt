@@ -1,17 +1,15 @@
-package com.ahmedmatem.android.workmeter.data.site
+package com.ahmedmatem.android.workmeter.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.ahmedmatem.android.workmeter.data.site.local.Site
+import com.ahmedmatem.android.workmeter.data.local.site.Site
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
-import com.ahmedmatem.android.workmeter.data.site.local.SiteLocalDataSource
-import com.ahmedmatem.android.workmeter.data.site.remote.SiteRemoteDataSource
+import com.ahmedmatem.android.workmeter.data.local.site.SiteLocalDataSource
+import com.ahmedmatem.android.workmeter.data.remote.site.SiteRemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
 

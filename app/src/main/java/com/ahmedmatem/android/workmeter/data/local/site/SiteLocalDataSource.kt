@@ -1,4 +1,4 @@
-package com.ahmedmatem.android.workmeter.data.site.local
+package com.ahmedmatem.android.workmeter.data.local.site
 
 import androidx.lifecycle.LiveData
 import org.koin.java.KoinJavaComponent.inject
