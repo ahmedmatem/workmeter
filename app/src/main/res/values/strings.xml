@@ -12,5 +12,9 @@
     <string name="site_list">Site List</string>
 
     <!-- content descriptions -->
-    <string name="add_worksheet_desc">Add worksheet</string>
+    <string name="desc_add_worksheet">Add worksheet</string>
+
+    <!-- texts -->
+    <string name="text_seal">Seal</string>
+    <string name="text_drawing">Drawing</string>
 </resources>
