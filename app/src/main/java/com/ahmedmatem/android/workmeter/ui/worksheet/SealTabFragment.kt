@@ -25,6 +25,8 @@ class SealTabFragment : BaseFragment() {
         binding = FragmentSealTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[SealTabViewModel::class.java]
 
+        binding.date.text = viewModel.now
+
         return binding.root
     }
 }
