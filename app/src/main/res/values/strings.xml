@@ -13,8 +13,22 @@
 
     <!-- content descriptions -->
     <string name="desc_add_worksheet">Add worksheet</string>
+    <string name="desc_select_drawing">Select a drawing</string>
 
     <!-- texts -->
     <string name="text_seal">Seal</string>
     <string name="text_drawing">Drawing</string>
+
+    <!-- SealTab form -->
+    <string name="text_date">Date</string>
+    <string name="text_seal_number">Seal Number</string>
+    <string name="text_location">Location</string>
+    <string name="seal_tab_text_drawing">@string/text_drawing</string>
+    <string name="seal_tab_location_hint">Enter location</string>
+    <string name="seal_tab_label_size">Size</string>
+    <string name="seal_tab_height_hint">Height</string>
+    <string name="seal_tab_width_hint">Width</string>
+    <string name="text_photos">Photos</string>
+    <string name="seal_tab_cam_desc">Take a picture</string>
+    <string name="seal_tab_phone_desc">Load a photo from phone galery</string>
 </resources>
