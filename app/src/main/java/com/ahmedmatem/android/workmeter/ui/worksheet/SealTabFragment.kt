@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
 
@@ -16,16 +18,14 @@ class SealTabFragment : BaseFragment() {
         fun newInstance() = SealTabFragment()
     }
 
-    override lateinit var viewModel: SealTabViewModel
+    override val viewModel: WorksheetViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSealTabBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[SealTabViewModel::class.java]
-
-        binding.date.text = viewModel.now
+        binding.worksheet = viewModel.worksheet
 
         return binding.root
     }

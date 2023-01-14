@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ahmedmatem.android.workmeter.R
@@ -16,14 +17,13 @@ class WorksheetFragment : BaseFragment() {
     private lateinit var binding: FragmentWorksheetBinding
     private lateinit var tabCollectionAdapter: TabCollectionAdapter
 
-    override lateinit var viewModel: WorksheetViewModel
+    override val viewModel: WorksheetViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWorksheetBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[WorksheetViewModel::class.java]
 
         return binding.root
     }

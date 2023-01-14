@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentDrawingTabBinding
@@ -18,14 +19,13 @@ class DrawingTabFragment : BaseFragment() {
         fun newInstance() = DrawingTabFragment()
     }
 
-    override lateinit var viewModel: DrawingTabViewModel
+    override val viewModel: WorksheetViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDrawingTabBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[DrawingTabViewModel::class.java]
 
         return binding.root
     }
