@@ -30,5 +30,4 @@ class SiteFragment : BaseFragment() {
 
         return binding.root
     }
-
 }

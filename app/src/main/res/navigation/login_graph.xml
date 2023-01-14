@@ -7,11 +7,12 @@
     <fragment
         android:id="@+id/loginFormFragment"
         android:name="com.ahmedmatem.android.workmeter.ui.login.LoginFormFragment"
-        android:label="fragment_login_form"
+        android:label="@string/label_login"
         tools:layout="@layout/fragment_login_form" >
         <action
             android:id="@+id/action_loginFormFragment_to_main_graph"
             app:destination="@id/main_graph"
+            app:launchSingleTop="true"
             app:popUpTo="@id/loginFormFragment"
             app:popUpToInclusive="true">
             <argument

@@ -19,6 +19,8 @@
     <string name="text_seal">Seal</string>
     <string name="text_drawing">Drawing</string>
 
+    <string name="label_login">Login</string>
+
     <!-- SealTab form -->
     <string name="text_date">Date</string>
     <string name="text_seal_number">Seal Number</string>
@@ -30,5 +32,5 @@
     <string name="seal_tab_width_hint">Width</string>
     <string name="text_photos">Photos</string>
     <string name="seal_tab_cam_desc">Take a picture</string>
-    <string name="seal_tab_phone_desc">Load a photo from phone galery</string>
+    <string name="seal_tab_phone_desc">Load a photo from phone gallery</string>
 </resources>

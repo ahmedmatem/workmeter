@@ -15,7 +15,8 @@
             app:argType="com.ahmedmatem.android.workmeter.data.model.LoggedInUser" />
         <action
             android:id="@+id/action_siteListFragment_to_siteFragment"
-            app:destination="@id/siteFragment" />
+            app:destination="@id/siteFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/siteFragment"

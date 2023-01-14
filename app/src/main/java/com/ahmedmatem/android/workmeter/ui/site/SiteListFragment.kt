@@ -15,12 +15,13 @@ class SiteListFragment : BaseFragment() {
 
     private val args: SiteListFragmentArgs by navArgs()
     override lateinit var viewModel: SiteListViewModel
+    private lateinit var binding: FragmentSiteListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentSiteListBinding.inflate(inflater, container, false)
+        binding = FragmentSiteListBinding.inflate(inflater, container, false)
         val adapter = SiteListAdapter(SiteListAdapter.OnClickListener{
             viewModel.navigateToSite(it)
         })
@@ -39,5 +40,4 @@ class SiteListFragment : BaseFragment() {
 
         return binding.root
     }
-
 }
