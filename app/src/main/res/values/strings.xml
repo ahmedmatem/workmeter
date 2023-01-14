@@ -34,4 +34,6 @@
     <string name="text_photos">Photos</string>
     <string name="seal_tab_cam_desc">Take a picture</string>
     <string name="seal_tab_phone_desc">Load a photo from phone gallery</string>
+
+    <string name="title_save">Save</string>
 </resources>
