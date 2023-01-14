@@ -12,7 +12,10 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/login_nav_host_fragment"

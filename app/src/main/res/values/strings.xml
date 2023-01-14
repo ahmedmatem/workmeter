@@ -20,6 +20,7 @@
     <string name="text_drawing">Drawing</string>
 
     <string name="label_login">Login</string>
+    <string name="label_worksheet">Worksheet</string>
 
     <!-- SealTab form -->
     <string name="text_date">Date</string>

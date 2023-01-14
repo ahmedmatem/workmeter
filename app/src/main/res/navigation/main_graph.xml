@@ -21,15 +21,18 @@
     <fragment
         android:id="@+id/siteFragment"
         android:name="com.ahmedmatem.android.workmeter.ui.site.SiteFragment"
-        android:label="fragment_site"
+        android:label="{title}"
         tools:layout="@layout/fragment_site" >
         <action
             android:id="@+id/action_siteFragment_to_worksheetFragment"
             app:destination="@id/worksheetFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/worksheetFragment"
         android:name="com.ahmedmatem.android.workmeter.ui.worksheet.WorksheetFragment"
-        android:label="fragment_worksheet"
+        android:label="@string/label_worksheet"
         tools:layout="@layout/fragment_worksheet" />
 </navigation>

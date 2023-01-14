@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarColoredBackArrow" parent="Theme.Workmeter">
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+    </style>
+</resources>

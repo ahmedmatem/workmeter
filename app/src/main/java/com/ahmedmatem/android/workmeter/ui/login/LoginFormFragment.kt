@@ -20,8 +20,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-const val LOGGED_IN_USER_KEY: String = "logged_in_user_key"
-
 class LoginFormFragment : BaseFragment() {
 
     override lateinit var viewModel: LoginFormViewModel
