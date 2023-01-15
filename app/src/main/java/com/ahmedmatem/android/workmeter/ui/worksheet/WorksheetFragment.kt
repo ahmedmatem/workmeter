@@ -67,11 +67,10 @@ class WorksheetFragment : BaseFragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId){
                     R.id.worksheet_save -> {
-                        // save worksheet
+                        // Save worksheet
                         Log.d("DEBUG", "onMenuItemSelected: save btn clicked ...")
                         true
                     }
-                    android.R.id.home -> findNavController().navigateUp()
                     else -> false
                 }
             }
