@@ -8,14 +8,17 @@ import com.ahmedmatem.android.workmeter.data.model.User
 import com.ahmedmatem.android.workmeter.data.local.login.UserDao
 import com.ahmedmatem.android.workmeter.data.model.Site
 import com.ahmedmatem.android.workmeter.data.local.site.SiteDao
+import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetDao
+import com.ahmedmatem.android.workmeter.data.model.Worksheet
 
 @Database(
-    entities = [User::class, Site::class],
+    entities = [User::class, Site::class, Worksheet::class],
     version = 1
 )
 abstract class WorkmeterDb: RoomDatabase() {
     abstract val userDao: UserDao
     abstract val siteDao: SiteDao
+    abstract val worksheetDao: WorksheetDao
 
     companion object {
         @Volatile
