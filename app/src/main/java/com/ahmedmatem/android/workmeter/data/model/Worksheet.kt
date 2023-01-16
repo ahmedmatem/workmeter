@@ -9,6 +9,7 @@ import java.util.Calendar
 @Entity
 data class Worksheet(
     @PrimaryKey val id: String,
+    @ColumnInfo(name = "site_id") val siteId: String,
     @ColumnInfo(name = "seal_num") val sealNum: Number,
     @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
     val location: String,
