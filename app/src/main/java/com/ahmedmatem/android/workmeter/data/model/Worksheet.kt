@@ -10,11 +10,11 @@ import java.util.Calendar
 data class Worksheet(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "site_id") val siteId: String,
-    @ColumnInfo(name = "seal_num") val sealNum: Number,
-    @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
+    val date: String = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
+    @ColumnInfo(name = "seal_num") val sealNum: Int,
     val location: String,
-    val size: String, // Size.parseSize("-3x-6").equals(new Size(-3, -6)) == true
+    val size: String = "0x0", // Size.parseSize("-3x-6").equals(new Size(-3, -6)) == true
+    @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
     // TODO: Implement photos property
     // ...
-    val date: String = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
 )
