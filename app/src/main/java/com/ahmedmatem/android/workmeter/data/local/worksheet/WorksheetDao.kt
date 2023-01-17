@@ -14,4 +14,7 @@ interface WorksheetDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(worksheet: Worksheet)
+
+    @Query("SELECT COUNT() FROM worksheet WHERE site_id = :siteId")
+    fun count(siteId: String) : Int
 }

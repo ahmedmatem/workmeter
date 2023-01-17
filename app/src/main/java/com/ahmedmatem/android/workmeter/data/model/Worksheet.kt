@@ -11,6 +11,7 @@ data class Worksheet(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "site_id") val siteId: String,
     val date: String = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
+    // TODO: write logic for sealNum generation
     @ColumnInfo(name = "seal_num") val sealNum: Int,
     val location: String,
     val size: String = "0x0", // Size.parseSize("-3x-6").equals(new Size(-3, -6)) == true
