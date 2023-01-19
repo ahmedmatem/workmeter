@@ -16,7 +16,11 @@ class WorksheetLocalDataSource {
     /**
      * Get the count of all worksheets in site by given siteId
      */
-    suspend fun count(siteId: String) = withContext(Dispatchers.IO){
-        dao.count(siteId)
+    suspend fun count(siteId: String) = flow<Int> {
+        emit(dao.count(siteId))
+    }
+
+    suspend fun getWorksheetNumber(siteId: String) : Int {
+        return dao.count(siteId)
     }
 }

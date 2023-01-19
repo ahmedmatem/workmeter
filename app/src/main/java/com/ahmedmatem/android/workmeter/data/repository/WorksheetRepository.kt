@@ -3,8 +3,7 @@ package com.ahmedmatem.android.workmeter.data.repository
 import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetLocalDataSource
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
 
@@ -18,10 +17,19 @@ class WorksheetRepository {
         }
     }
 
-    suspend fun sealNumber(siteId: String): Flow<Int> {
-        return flow {
-            val count = localDataSource.count(siteId)
-            emit(count)
+//    suspend fun sealNumber(siteId: String): Flow<Int> {
+//        return flow {
+//            localDataSource.count(siteId)
+//                .flowOn(ioDispatcher)
+//                .collect{
+//                    emit(it)
+//                }
+//        }
+//    }
+
+    suspend fun getSealNumber(siteId: String) : Int {
+        return withContext(ioDispatcher){
+            localDataSource.getWorksheetNumber(siteId)
         }
     }
 }

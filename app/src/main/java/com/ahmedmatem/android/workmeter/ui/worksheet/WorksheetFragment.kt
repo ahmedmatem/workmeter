@@ -1,13 +1,11 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
@@ -28,6 +26,11 @@ class WorksheetFragment : BaseFragment() {
         binding = FragmentWorksheetBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    override fun onPause() {
+        viewModel.save()
+        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
