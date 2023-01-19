@@ -5,7 +5,11 @@ import com.ahmedmatem.android.workmeter.data.local.login.UserDao
 import com.ahmedmatem.android.workmeter.data.repository.SiteRepository
 import com.ahmedmatem.android.workmeter.data.local.site.SiteDao
 import com.ahmedmatem.android.workmeter.data.local.site.SiteLocalDataSource
+import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetDao
+import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetLocalDataSource
 import com.ahmedmatem.android.workmeter.data.remote.site.SiteRemoteDataSource
+import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
+import com.ahmedmatem.android.workmeter.ui.worksheet.WorksheetViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -25,6 +29,10 @@ val appModule = module {
         val db = get<WorkmeterDb>()
         db.siteDao
     }
+    single<WorksheetDao> {
+        val db = get<WorkmeterDb>()
+        db.worksheetDao
+    }
 
     single { FirebaseAuth.getInstance() }
     single { Firebase.firestore }
@@ -32,8 +40,9 @@ val appModule = module {
     // data sources
     single { SiteRemoteDataSource() }
     single { SiteLocalDataSource() }
+    single { WorksheetLocalDataSource() }
 
     // repositories
     single { SiteRepository() }
-
+    single { WorksheetRepository() }
 }

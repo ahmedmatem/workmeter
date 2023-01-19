@@ -1,7 +1,6 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -29,6 +28,11 @@ class WorksheetFragment : BaseFragment() {
         binding = FragmentWorksheetBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    override fun onPause() {
+        viewModel.save()
+        super.onPause()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,8 +72,7 @@ class WorksheetFragment : BaseFragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when(menuItem.itemId){
                     R.id.worksheet_save -> {
-                        // Save worksheet
-                        Log.d("DEBUG", "onMenuItemSelected: save btn clicked ...")
+                        viewModel.save()
                         true
                     }
                     else -> false
