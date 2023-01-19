@@ -22,7 +22,7 @@ class SiteListViewModel(private val args: SiteListFragmentArgs) : BaseViewModel(
 
     fun navigateToSite(site: Site){
         navigationCommand.value = NavigationCommand.To(
-            SiteListFragmentDirections.actionSiteListFragmentToSiteFragment(site.name)
+            SiteListFragmentDirections.actionSiteListFragmentToSiteFragment(site.name, site.id)
         )
     }
 }

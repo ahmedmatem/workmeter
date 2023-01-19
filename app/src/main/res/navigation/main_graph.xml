@@ -29,10 +29,17 @@
         <argument
             android:name="title"
             app:argType="string" />
+        <argument
+            android:name="siteId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/worksheetFragment"
         android:name="com.ahmedmatem.android.workmeter.ui.worksheet.WorksheetFragment"
         android:label="@string/label_worksheet"
-        tools:layout="@layout/fragment_worksheet" />
+        tools:layout="@layout/fragment_worksheet" >
+        <argument
+            android:name="siteId"
+            app:argType="string" />
+    </fragment>
 </navigation>
