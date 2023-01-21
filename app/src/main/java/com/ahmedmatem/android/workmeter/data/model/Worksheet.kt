@@ -17,7 +17,7 @@ data class Worksheet(
     val width: String,
     val height: String,
     @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
-    val state: State,
+    val isComplete: Boolean,
     // TODO: Implement photos property
     // ...
 ) {
@@ -39,13 +39,13 @@ data class Worksheet(
                 location = "",
                 width = "",
                 height = "",
-                state = State.STARTED
+                isComplete = false
             )
         }
     }
 }
 
-fun Worksheet.assign(location: String, width: String, height: String, state: State? = null) : Worksheet {
+fun Worksheet.assign(location: String, width: String, height: String, isComplete: Boolean = false) : Worksheet {
     return Worksheet(
         id = id,
         siteId = siteId,
@@ -54,11 +54,7 @@ fun Worksheet.assign(location: String, width: String, height: String, state: Sta
         location = location,
         width = width,
         height = height,
-        state = state ?: this.state
+        isComplete = isComplete
     )
-}
-
-enum class State {
-    STARTED, INCOMPLETE, DONE
 }
 

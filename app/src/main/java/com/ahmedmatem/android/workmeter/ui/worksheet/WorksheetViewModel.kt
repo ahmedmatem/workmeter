@@ -1,11 +1,9 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
-import android.util.Size
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
-import com.ahmedmatem.android.workmeter.data.model.State
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
@@ -19,8 +17,8 @@ class WorksheetViewModel(private val siteId: String) : BaseViewModel() {
     private val repository: WorksheetRepository by inject(WorksheetRepository::class.java)
 
     private var _location: String = ""
-    private var _width: String = "0"
-    private var _height: String = "0"
+    private var _width: String = ""
+    private var _height: String = ""
 
     private val _worksheetState: MutableStateFlow<Worksheet?> = MutableStateFlow(null)
     val worksheetState: StateFlow<Worksheet?> = _worksheetState
@@ -52,6 +50,7 @@ class WorksheetViewModel(private val siteId: String) : BaseViewModel() {
     /**
      * Factory to construct view model with parameter
      */
+    @Suppress("UNCHECKED_CAST")
     class Factory(private val siteId: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(WorksheetViewModel::class.java)){
