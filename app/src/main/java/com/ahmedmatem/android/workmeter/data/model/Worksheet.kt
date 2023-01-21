@@ -14,7 +14,8 @@ data class Worksheet(
     // TODO: write logic for sealNum generation
     @ColumnInfo(name = "seal_num") val sealNum: Int,
     val location: String,
-    val size: String, // Size.parseSize("-3x-6").equals(new Size(-3, -6)) == true
+    val width: String,
+    val height: String,
     @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
     val state: State,
     // TODO: Implement photos property
@@ -36,26 +37,28 @@ data class Worksheet(
                 date = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
                 sealNum = sealNum,
                 location = "",
-                size = "0x0",
+                width = "",
+                height = "",
                 state = State.STARTED
             )
         }
     }
 }
 
-fun Worksheet.assign(location: String, size: String, state: State? = null) : Worksheet {
+fun Worksheet.assign(location: String, width: String, height: String, state: State? = null) : Worksheet {
     return Worksheet(
         id = id,
         siteId = siteId,
         date = date,
         sealNum = sealNum,
         location = location,
-        size = size,
+        width = width,
+        height = height,
         state = state ?: this.state
     )
 }
 
 enum class State {
-    STARTED, IN_PROGRESS, DONE
+    STARTED, INCOMPLETE, DONE
 }
 

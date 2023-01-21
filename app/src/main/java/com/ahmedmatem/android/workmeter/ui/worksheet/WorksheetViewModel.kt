@@ -32,7 +32,7 @@ class WorksheetViewModel(private val siteId: String) : BaseViewModel() {
     fun save(){
         viewModelScope.launch {
             _worksheetState.value = _worksheetState.value!!
-                .assign(_location, "${_width}x${_height}")
+                .assign(_location, _width, _height)
             repository.save(_worksheetState.value!!)
         }
     }
