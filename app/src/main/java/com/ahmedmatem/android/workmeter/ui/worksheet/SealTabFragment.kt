@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
+import com.ahmedmatem.android.workmeter.ui.login.afterTextChanged
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -23,7 +24,7 @@ class SealTabFragment : BaseFragment() {
         fun newInstance() = SealTabFragment()
     }
 
-    override val viewModel: WorksheetViewModel by viewModels(ownerProducer = {requireParentFragment()})
+    override val viewModel: WorksheetViewModel by viewModels({requireParentFragment()})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,16 @@ class SealTabFragment : BaseFragment() {
     ): View? {
         binding = FragmentSealTabBinding.inflate(inflater, container, false)
         binding.worksheet = viewModel.worksheetState.value
+
+        binding.location.afterTextChanged {
+            viewModel.locationChanged(it)
+        }
+        binding.width.afterTextChanged {
+            viewModel.widthChanged(it)
+        }
+        binding.height.afterTextChanged {
+            viewModel.heightChanged(it)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){

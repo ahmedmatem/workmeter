@@ -20,7 +20,7 @@ class WorksheetLocalDataSource {
         emit(dao.count(siteId))
     }
 
-    suspend fun getWorksheetNumber(siteId: String) : Int {
+    fun getWorksheetNumber(siteId: String) : Int {
         return dao.count(siteId)
     }
 }

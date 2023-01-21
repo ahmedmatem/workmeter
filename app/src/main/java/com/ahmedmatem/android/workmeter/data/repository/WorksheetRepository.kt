@@ -3,7 +3,6 @@ package com.ahmedmatem.android.workmeter.data.repository
 import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetLocalDataSource
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
 
@@ -27,9 +26,13 @@ class WorksheetRepository {
 //        }
 //    }
 
-    suspend fun getSealNumber(siteId: String) : Int {
+    /**
+     * Function find the number of all worksheet in the database
+     * and add 1 to generate sealNum(seal number).
+     */
+    suspend fun generateSealNum(siteId: String) : Int {
         return withContext(ioDispatcher){
-            localDataSource.getWorksheetNumber(siteId)
+            localDataSource.getWorksheetNumber(siteId) + 1
         }
     }
 }

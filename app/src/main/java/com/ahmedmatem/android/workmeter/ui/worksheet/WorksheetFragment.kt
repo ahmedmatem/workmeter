@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.*
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ahmedmatem.android.workmeter.R
@@ -19,13 +18,18 @@ class WorksheetFragment : BaseFragment() {
     private lateinit var binding: FragmentWorksheetBinding
     private lateinit var tabCollectionAdapter: TabCollectionAdapter
 
-    override val viewModel: WorksheetViewModel by viewModels()
+    override lateinit var viewModel: WorksheetViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentWorksheetBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(
+            this,
+            WorksheetViewModel.Factory(args.siteId)
+        )[WorksheetViewModel::class.java]
 
         return binding.root
     }
@@ -34,6 +38,8 @@ class WorksheetFragment : BaseFragment() {
         viewModel.save()
         super.onPause()
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         tabCollectionAdapter = TabCollectionAdapter(this)

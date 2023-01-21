@@ -16,20 +16,46 @@ data class Worksheet(
     val location: String,
     val size: String, // Size.parseSize("-3x-6").equals(new Size(-3, -6)) == true
     @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
+    val state: State,
     // TODO: Implement photos property
     // ...
-){
+) {
     companion object {
-        // Each worksheet initial value after created
-        fun init(siteId: String, sealNum: Int) : Worksheet {
+        /**
+         * Companion function sets default value to newly created worksheet.
+         *
+         *  Arguments:
+         * * siteId - the id of Site which worksheet is created for
+         * * sealNum - the number of seal generated automatically equals
+         *             the number of worksheets already  plus 1.
+         */
+        fun default(siteId: String, sealNum: Int) : Worksheet {
             return Worksheet(
                 id = UUID.randomUUID().toString(),
                 siteId = siteId,
                 date = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
                 sealNum = sealNum,
                 location = "",
-                size = "0x0"
+                size = "0x0",
+                state = State.STARTED
             )
         }
     }
 }
+
+fun Worksheet.assign(location: String, size: String, state: State? = null) : Worksheet {
+    return Worksheet(
+        id = id,
+        siteId = siteId,
+        date = date,
+        sealNum = sealNum,
+        location = location,
+        size = size,
+        state = state ?: this.state
+    )
+}
+
+enum class State {
+    STARTED, IN_PROGRESS, DONE
+}
+
