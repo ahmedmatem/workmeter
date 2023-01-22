@@ -11,7 +11,6 @@ data class Worksheet(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "site_id") val siteId: String,
     val date: String,
-    // TODO: write logic for sealNum generation
     @ColumnInfo(name = "seal_num") val sealNum: Int,
     val location: String,
     val width: String,

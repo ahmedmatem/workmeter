@@ -1,16 +1,10 @@
 package com.ahmedmatem.android.workmeter.ui.site
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.InitializerViewModelFactoryBuilder
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
-import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentSiteBinding
 
 class SiteFragment : BaseFragment() {
@@ -23,8 +17,12 @@ class SiteFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSiteBinding.inflate(inflater, container, false)
+
+        // TODO: Show summary for complete worksheets
+
+        // TODO: Show list of incomplete worksheets
 
         binding.fab.setOnClickListener {
             viewModel.navigateToWorksheet(args.siteId)
