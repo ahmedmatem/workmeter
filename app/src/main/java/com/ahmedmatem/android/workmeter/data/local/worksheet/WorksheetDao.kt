@@ -20,4 +20,7 @@ interface WorksheetDao {
      */
     @Query("SELECT COUNT() FROM worksheet WHERE site_id = :siteId")
     fun count(siteId: String) : Int
+
+    @Query("SELECT * FROM worksheet WHERE site_id = :siteId AND isComplete = 0")
+    fun allIncomplete(siteId: String) : Flow<List<Worksheet>>
 }

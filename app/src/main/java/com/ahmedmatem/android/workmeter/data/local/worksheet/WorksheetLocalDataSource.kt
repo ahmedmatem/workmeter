@@ -1,6 +1,9 @@
 package com.ahmedmatem.android.workmeter.data.local.worksheet
 
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetLocalDataSource {
@@ -12,5 +15,9 @@ class WorksheetLocalDataSource {
 
     fun getWorksheetNumber(siteId: String) : Int {
         return dao.count(siteId)
+    }
+
+    fun getAllIncomplete(siteId: String) : Flow<List<Worksheet>> {
+        return dao.allIncomplete(siteId)
     }
 }
