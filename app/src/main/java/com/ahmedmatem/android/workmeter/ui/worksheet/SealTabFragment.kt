@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
 import com.ahmedmatem.android.workmeter.ui.login.afterTextChanged
 import kotlinx.coroutines.flow.collect
@@ -43,7 +44,9 @@ class SealTabFragment : BaseFragment() {
             viewModel.heightChanged(it)
         }
         binding.camera.setOnClickListener {
-            viewModel.showErrorMessage.value = "Camera was clicked"
+            viewModel.navigationCommand.value = NavigationCommand.To(
+                WorksheetFragmentDirections.actionWorksheetFragmentToCameraFragment()
+            )
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
