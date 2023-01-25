@@ -36,4 +36,6 @@
     <string name="seal_tab_phone_desc">Load a photo from phone gallery</string>
 
     <string name="title_save">Save</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
