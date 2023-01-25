@@ -41,5 +41,10 @@
         <argument
             android:name="siteId"
             app:argType="string" />
+        <argument
+            android:name="worksheetId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
     </fragment>
 </navigation>

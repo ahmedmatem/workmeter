@@ -14,6 +14,12 @@ class WorksheetRepository() {
     private val localDataSource: WorksheetLocalDataSource by inject(WorksheetLocalDataSource::class.java)
     private val ioDispatcher = Dispatchers.IO
 
+    suspend fun getWorksheetBy(id: String) : Worksheet {
+        return withContext(ioDispatcher) {
+            localDataSource.getById(id)
+        }
+    }
+
     suspend fun save(worksheet: Worksheet) {
         withContext(ioDispatcher) {
             localDataSource.save(worksheet)

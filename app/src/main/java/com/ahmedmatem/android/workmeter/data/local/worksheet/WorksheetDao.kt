@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorksheetDao {
     @Query("SELECT * FROM worksheet WHERE id = :id")
-    fun getById(id: String): Flow<Worksheet>
+    fun getById(id: String): Worksheet
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(worksheet: Worksheet)
@@ -21,6 +21,6 @@ interface WorksheetDao {
     @Query("SELECT COUNT() FROM worksheet WHERE site_id = :siteId")
     fun count(siteId: String) : Int
 
-    @Query("SELECT * FROM worksheet WHERE site_id = :siteId AND isComplete = 0")
+    @Query("SELECT * FROM worksheet WHERE site_id = :siteId AND isComplete = 0 ORDER BY seal_num")
     fun allIncomplete(siteId: String) : Flow<List<Worksheet>>
 }

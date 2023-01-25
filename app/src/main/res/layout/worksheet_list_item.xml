@@ -7,21 +7,22 @@
         <variable
             name="worksheet"
             type="com.ahmedmatem.android.workmeter.data.model.Worksheet" />
+        <import type="android.text.TextUtils"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="72dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="72dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="72dp"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            android:layout_marginVertical="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:text="@{String.valueOf(worksheet.sealNum)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +50,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="-34dp"
-                    android:text="@{worksheet.location}"
+                    android:text='@{TextUtils.isEmpty(worksheet.location) ? "Location" : worksheet.location}'
                     android:textSize="21sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="parent"
@@ -63,7 +65,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="-22dp"
-                    android:text="@{worksheet.width}"
+                    android:text='@{TextUtils.isEmpty(worksheet.width) ? "Width" : worksheet.width + " x " + (TextUtils.isEmpty(worksheet.height) ? "Height" : worksheet.height)}'
                     android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="@+id/location"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +73,7 @@
                     tools:text="Size: 1200 x 400" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+<!--        </androidx.cardview.widget.CardView>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

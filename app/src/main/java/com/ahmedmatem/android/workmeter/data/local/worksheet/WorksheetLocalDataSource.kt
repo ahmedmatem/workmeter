@@ -9,6 +9,10 @@ import org.koin.java.KoinJavaComponent.inject
 class WorksheetLocalDataSource {
     private val dao: WorksheetDao by inject(WorksheetDao::class.java)
 
+    fun getById(id: String) : Worksheet {
+        return dao.getById(id)
+    }
+
     fun save(worksheet: Worksheet){
         dao.insert(worksheet)
     }

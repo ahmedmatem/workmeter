@@ -6,12 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
-import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import org.koin.java.KoinJavaComponent.inject
 
 class SiteViewModel(private val siteId: String) : BaseViewModel() {
@@ -19,9 +14,9 @@ class SiteViewModel(private val siteId: String) : BaseViewModel() {
 
     val incompleteWorksheets = worksheetRepository.getAllIncompleteWorksheets(siteId)
 
-    fun navigateToWorksheet(siteId: String) {
+    fun navigateToWorksheet(worksheetId: String? = null) {
         navigationCommand.value = NavigationCommand.To(
-            SiteFragmentDirections.actionSiteFragmentToWorksheetFragment(siteId)
+            SiteFragmentDirections.actionSiteFragmentToWorksheetFragment(siteId, worksheetId)
         )
     }
 
