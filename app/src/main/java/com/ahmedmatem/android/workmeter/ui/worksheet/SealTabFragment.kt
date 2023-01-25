@@ -42,6 +42,9 @@ class SealTabFragment : BaseFragment() {
         binding.height.afterTextChanged {
             viewModel.heightChanged(it)
         }
+        binding.camera.setOnClickListener {
+            viewModel.showErrorMessage.value = "Camera was clicked"
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){

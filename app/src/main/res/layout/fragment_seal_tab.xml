@@ -171,7 +171,7 @@
             app:layout_constraintTop_toBottomOf="@+id/width" />
 
         <ImageView
-            android:id="@+id/camera_iw"
+            android:id="@+id/camera"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
@@ -182,7 +182,7 @@
             app:layout_constraintTop_toBottomOf="@+id/photos_label" />
 
         <ImageView
-            android:id="@+id/phone_iw"
+            android:id="@+id/phone"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginTop="8dp"
