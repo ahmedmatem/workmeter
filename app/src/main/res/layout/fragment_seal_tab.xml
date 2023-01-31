@@ -31,10 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:text="@{worksheet.date}"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_label"
-            android:text="@{worksheet.date}"
             tools:text="13/1/2023" />
 
         <TextView
@@ -54,9 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:text="@{String.valueOf(worksheet.sealNum)}"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@{String.valueOf(worksheet.sealNum)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/seal_num_label"
             tools:text="65" />
@@ -106,8 +106,8 @@
             android:hint="@string/seal_tab_location_hint"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:textSize="20sp"
             android:text="@{worksheet.location}"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location_label"
@@ -131,16 +131,16 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:textSize="20sp"
-            android:inputType="number"
             android:hint="@string/seal_tab_width_hint"
+            android:importantForAutofill="no"
+            android:inputType="number"
             android:text="@{worksheet.width}"
-            tools:text="1200"
+            android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/height"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/size_label"
-            android:importantForAutofill="no" />
+            tools:text="1200" />
 
         <EditText
             android:id="@+id/height"
@@ -148,16 +148,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:inputType="number"
-            android:textSize="20sp"
             android:hint="@string/seal_tab_height_hint"
+            android:importantForAutofill="no"
+            android:inputType="number"
             android:text="@{worksheet.height}"
-            tools:text="350"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/width"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/width"
-            android:importantForAutofill="no" />
+            tools:text="350" />
 
         <TextView
             android:id="@+id/photos_label"
@@ -165,8 +165,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textSize="12sp"
             android:text="@string/text_photos"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/width" />
 
@@ -191,5 +191,17 @@
             android:src="@drawable/ic_baseline_phone_android_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/photos_label" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/camera" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
