@@ -2,8 +2,6 @@ package com.ahmedmatem.android.workmeter.data.local.worksheet
 
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetLocalDataSource {
@@ -21,7 +19,17 @@ class WorksheetLocalDataSource {
         return dao.count(siteId)
     }
 
-    fun getAllIncomplete(siteId: String) : Flow<List<Worksheet>> {
+    fun getAllIncomplete(siteId: String) : Flow<List<com.ahmedmatem.android.workmeter.data.model.Worksheet>> {
         return dao.allIncomplete(siteId)
+    }
+
+    fun savePhoto(id: String, photoUri: String) {
+        val currentPhotos = dao.getById(id).photos
+        // append photoUri to current photos
+        val newPhotos = if(currentPhotos.isNotBlank())
+            "$currentPhotos,$photoUri"
+        else
+            photoUri
+        dao.updatePhotos(id, newPhotos)
     }
 }

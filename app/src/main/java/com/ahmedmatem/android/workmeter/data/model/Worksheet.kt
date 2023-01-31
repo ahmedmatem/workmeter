@@ -17,8 +17,7 @@ data class Worksheet(
     val height: String,
     @ColumnInfo(name = "drawing_url") val drawingUrl: String? = null,
     val isComplete: Boolean,
-    // TODO: Implement photos property
-    // ...
+    val photos: String, // 'uri_1,uri_2,...uri_last,'
 ) {
     companion object {
         /**
@@ -33,18 +32,24 @@ data class Worksheet(
             return Worksheet(
                 id = UUID.randomUUID().toString(),
                 siteId = siteId,
-                date = SimpleDateFormat("dd-MM-yyyy EEE").format(Calendar.getInstance().time),
+                date = SimpleDateFormat("dd-MM-yyyy EEE", Locale.UK).format(Calendar.getInstance().time),
                 sealNum = sealNum,
                 location = "",
                 width = "",
                 height = "",
-                isComplete = false
+                isComplete = false,
+                photos = ""
             )
         }
     }
 }
 
-fun Worksheet.assign(location: String, width: String, height: String, isComplete: Boolean = false) : Worksheet {
+fun Worksheet.assign(
+    location: String,
+    width: String,
+    height: String,
+    photos: String,
+    isComplete: Boolean = false) : Worksheet {
     return Worksheet(
         id = id,
         siteId = siteId,
@@ -53,6 +58,7 @@ fun Worksheet.assign(location: String, width: String, height: String, isComplete
         location = location,
         width = width,
         height = height,
+        photos = photos,
         isComplete = isComplete
     )
 }

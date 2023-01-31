@@ -44,9 +44,7 @@ class SealTabFragment : BaseFragment() {
             viewModel.heightChanged(it)
         }
         binding.camera.setOnClickListener {
-            viewModel.navigationCommand.value = NavigationCommand.To(
-                WorksheetFragmentDirections.actionWorksheetFragmentToCameraFragment()
-            )
+            viewModel.navigateToCamera()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

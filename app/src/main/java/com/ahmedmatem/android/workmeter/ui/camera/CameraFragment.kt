@@ -10,17 +10,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.ahmedmatem.android.workmeter.R
+import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
 import java.text.SimpleDateFormat
@@ -31,12 +29,15 @@ import java.util.concurrent.Executors
 class CameraFragment : BaseFragment() {
     override val viewModel: CameraViewModel by viewModels()
 
+    private val args: CameraFragmentArgs by navArgs()
+
     private val permissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
         if(isGranted){
             startCamera()
         } else {
             viewModel.showToast.value = "Permissions not granted."
+            // TODO: Explain why permission is important to be granted
         }
     }
 
@@ -53,8 +54,6 @@ class CameraFragment : BaseFragment() {
         if(allPermissionsGranted()){
             startCamera()
         } else {
-            /*ActivityCompat.requestPermissions(
-                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)*/
             permissionsLauncher.launch(Manifest.permission.CAMERA)
         }
 
@@ -106,9 +105,10 @@ class CameraFragment : BaseFragment() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults){
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
-                    viewModel.showToast.value = msg
-                    Log.d(TAG, msg)
+                    // val msg = "Photo capture succeeded: ${output.savedUri}"
+                    // Log.d(TAG, msg)
+                    viewModel.savePhoto(args.worksheetId, output.savedUri.toString())
+                    viewModel.showToast.value = "Image saved" // TODO: remove showToast line
                 }
             }
         )

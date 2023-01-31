@@ -15,12 +15,12 @@ interface WorksheetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(worksheet: Worksheet)
 
-    /**
-     * Site specific queries
-     */
     @Query("SELECT COUNT() FROM worksheet WHERE site_id = :siteId")
-    fun count(siteId: String) : Int
+    fun count(siteId: String): Int
 
     @Query("SELECT * FROM worksheet WHERE site_id = :siteId AND isComplete = 0 ORDER BY seal_num")
-    fun allIncomplete(siteId: String) : Flow<List<Worksheet>>
+    fun allIncomplete(siteId: String): Flow<List<Worksheet>>
+
+    @Query("UPDATE worksheet SET photos = :photos WHERE id = :id")
+    fun updatePhotos(id: String, photos: String)
 }

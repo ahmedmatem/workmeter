@@ -6,19 +6,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetViewModel(
     private val siteId: String,
-    private val worksheetId: String? ) : BaseViewModel() {
+    private var _worksheetId: String? ) : BaseViewModel() {
 
     private val repository: WorksheetRepository by inject(WorksheetRepository::class.java)
 
@@ -30,13 +29,13 @@ class WorksheetViewModel(
     val worksheetState: StateFlow<Worksheet?> = _worksheetState
 
     init {
-        loadWorksheet(worksheetId)
+        loadWorksheet()
     }
 
     fun save(){
         viewModelScope.launch {
-            _worksheetState.value = _worksheetState.value!!
-                .assign(_location, _width, _height)
+            _worksheetState.value =  _worksheetState.value!!
+                .assign(_location, _width, _height, _worksheetState.value!!.photos)
             repository.save(_worksheetState.value!!)
         }
     }
@@ -53,15 +52,20 @@ class WorksheetViewModel(
         _height = height
     }
 
-    private fun loadWorksheet(worksheetId: String?) {
+    fun navigateToCamera() {
+        navigationCommand.value = NavigationCommand.To(WorksheetFragmentDirections
+            .actionWorksheetFragmentToCameraFragment(_worksheetState.value?.id!!)
+        )
+    }
+
+    private fun loadWorksheet() {
         viewModelScope.launch {
-            if(worksheetId != null){
+            _worksheetState.value = _worksheetId?.let{ id ->
                 // Load existing worksheet from local database
-                _worksheetState.value = repository.getWorksheetBy(worksheetId)
-            } else {
-                // Create new Default worksheet with generated seal number
+                repository.getWorksheetBy(id)
+            } ?: run {
                 val sealNum = repository.generateSealNum(siteId)
-                _worksheetState.value = Worksheet.default(siteId, sealNum)
+                Worksheet.default(siteId, sealNum)
             }
         }
     }

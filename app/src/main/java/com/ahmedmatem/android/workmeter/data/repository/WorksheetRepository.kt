@@ -4,7 +4,6 @@ import com.ahmedmatem.android.workmeter.data.local.worksheet.WorksheetLocalDataS
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
@@ -23,6 +22,12 @@ class WorksheetRepository() {
     suspend fun save(worksheet: Worksheet) {
         withContext(ioDispatcher) {
             localDataSource.save(worksheet)
+        }
+    }
+
+    suspend fun savePhoto(id: String, photoUri: String) {
+        withContext(ioDispatcher) {
+            localDataSource.savePhoto(id, photoUri)
         }
     }
 
