@@ -1,5 +1,6 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
+import android.util.Log
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -60,12 +62,14 @@ class WorksheetViewModel(
 
     private fun loadWorksheet() {
         viewModelScope.launch {
-            _worksheetState.value = _worksheetId?.let{ id ->
+            _worksheetId?.let{ id ->
                 // Load existing worksheet from local database
-                repository.getWorksheetBy(id)
+                repository.getWorksheetBy(id).collect { worksheet ->
+                    _worksheetState.value = worksheet
+                }
             } ?: run {
                 val sealNum = repository.generateSealNum(siteId)
-                Worksheet.default(siteId, sealNum)
+                _worksheetState.value = Worksheet.default(siteId, sealNum)
             }
         }
     }

@@ -2,12 +2,15 @@ package com.ahmedmatem.android.workmeter.data.local.worksheet
 
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.single
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetLocalDataSource {
     private val dao: WorksheetDao by inject(WorksheetDao::class.java)
 
-    fun getById(id: String) : Worksheet {
+    fun getById(id: String) : Flow<Worksheet> {
         return dao.getById(id)
     }
 
@@ -23,8 +26,8 @@ class WorksheetLocalDataSource {
         return dao.allIncomplete(siteId)
     }
 
-    fun savePhoto(id: String, photoUri: String) {
-        val currentPhotos = dao.getById(id).photos
+    suspend fun savePhoto(id: String, photoUri: String) {
+        val currentPhotos = dao.getById(id).first().photos
         // append photoUri to current photos
         val newPhotos = if(currentPhotos.isNotBlank())
             "$currentPhotos,$photoUri"

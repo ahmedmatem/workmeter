@@ -26,6 +26,9 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+
+// TODO: Make this fragment to show in full screen
+
 class CameraFragment : BaseFragment() {
     override val viewModel: CameraViewModel by viewModels()
 

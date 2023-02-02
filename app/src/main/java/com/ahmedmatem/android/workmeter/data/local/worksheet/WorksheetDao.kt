@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorksheetDao {
     @Query("SELECT * FROM worksheet WHERE id = :id")
-    fun getById(id: String): Worksheet
+    fun getById(id: String): Flow<Worksheet>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(worksheet: Worksheet)

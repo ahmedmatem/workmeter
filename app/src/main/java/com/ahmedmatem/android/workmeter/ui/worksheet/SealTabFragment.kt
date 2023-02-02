@@ -45,7 +45,7 @@ class SealTabFragment : BaseFragment() {
          * Photo recycler UI
          */
         val adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener {
-            // TODO: Implement onPhoto click listener
+            // TODO: Implement deletion onPhoto click listener
             viewModel.showToast.value = "Photo was clicked."
         })
         binding.photosRecyclerView.layoutManager =
