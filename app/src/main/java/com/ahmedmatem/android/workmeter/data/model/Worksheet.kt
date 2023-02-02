@@ -3,6 +3,7 @@ package com.ahmedmatem.android.workmeter.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ahmedmatem.android.workmeter.ui.worksheet.PhotoData
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +21,7 @@ data class Worksheet(
     val photos: String, // 'uri_1,uri_2,...uri_last,'
 ) {
     companion object {
+        const val COMMA_DELIMITER = ','
         /**
          * Companion function sets default value to newly created worksheet.
          *
@@ -43,6 +45,14 @@ data class Worksheet(
         }
     }
 }
+
+/**
+ * Helper function converts photos from String to List
+ */
+fun Worksheet.photosToList() : List<PhotoData> =
+    listOf(*(photos.split(Worksheet.COMMA_DELIMITER).toTypedArray())).map { uri ->
+        PhotoData(id, uri)
+    }
 
 fun Worksheet.assign(
     location: String,
