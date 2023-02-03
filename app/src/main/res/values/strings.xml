@@ -41,4 +41,6 @@
 
     <string name="take_photo">Take photo</string>
     <string name="worksheet_photo_description">Worksheet photo</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.data.model.photosToList
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
@@ -24,7 +26,7 @@ class SealTabFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSealTabBinding.inflate(inflater, container, false)
         binding.worksheet = viewModel.worksheetState.value
 
@@ -45,8 +47,17 @@ class SealTabFragment : BaseFragment() {
          * Photo recycler UI
          */
         val adapter = PhotoListAdapter(PhotoListAdapter.OnClickListener { photo ->
-            viewModel.deletePhoto(photo.uri)
+            AlertDialog.Builder(requireContext()).apply {
+                setMessage("Do you want to delete the image?")
+                setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    viewModel.deletePhoto(photo.uri)
+                }
+                setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+            }
+                .create()
+                .show()
         })
+
         binding.photosRecyclerView.layoutManager =
             StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
         binding.photosRecyclerView.adapter = adapter

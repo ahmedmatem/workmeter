@@ -11,10 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -102,6 +99,7 @@ class CameraFragment : BaseFragment() {
                 contentValues)
             .build()
 
+        // TODO: try to capture image without saving it: Use OnImageCapturedCallback
         // Set up image capture listener, which is triggered after photo has
         // been taken
         imageCapture.takePicture(
@@ -113,10 +111,7 @@ class CameraFragment : BaseFragment() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults){
-                    // val msg = "Photo capture succeeded: ${output.savedUri}"
-                    // Log.d(TAG, msg)
                     viewModel.savePhoto(args.worksheetId, output.savedUri.toString())
-                    viewModel.showToast.value = "Image saved" // TODO: remove showToast line
                 }
             }
         )
