@@ -33,6 +33,12 @@ class WorksheetRepository() {
         }
     }
 
+    suspend fun deletePhoto (id: String, photoUri: String) {
+        withContext(ioDispatcher) {
+            localDataSource.deletePhoto(id, photoUri)
+        }
+    }
+
     fun getAllIncompleteWorksheets(siteId: String) : Flow<List<Worksheet>> {
         return flow {
             localDataSource.getAllIncomplete(siteId)

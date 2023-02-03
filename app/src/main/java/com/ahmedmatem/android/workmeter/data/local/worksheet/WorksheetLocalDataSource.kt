@@ -1,10 +1,7 @@
 package com.ahmedmatem.android.workmeter.data.local.worksheet
 
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.*
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetLocalDataSource {
@@ -24,6 +21,15 @@ class WorksheetLocalDataSource {
 
     fun getAllIncomplete(siteId: String) : Flow<List<com.ahmedmatem.android.workmeter.data.model.Worksheet>> {
         return dao.allIncomplete(siteId)
+    }
+
+    suspend fun deletePhoto(id: String, photoUri: String) {
+        val currentPhotos = dao.getById(id).first().photos
+        // delete photoUri from current photos
+        val newPhotos = currentPhotos.split(',').joinToString(",") { uri ->
+            if (uri != photoUri) uri else ""
+        }.replace(",,", ",").trim(',')
+        dao.updatePhotos(id, newPhotos)
     }
 
     suspend fun savePhoto(id: String, photoUri: String) {

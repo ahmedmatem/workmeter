@@ -42,6 +42,12 @@ class WorksheetViewModel(
         }
     }
 
+    fun deletePhoto(photoUri: String) {
+        viewModelScope.launch {
+            repository.deletePhoto(_worksheetId!!, photoUri)
+        }
+    }
+
     fun locationChanged(location: String){
         _location = location
     }
