@@ -21,13 +21,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
+import com.ahmedmatem.android.workmeter.utils.clearFullScreen
+import com.ahmedmatem.android.workmeter.utils.setFullScreen
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-
-
-// TODO: Make this fragment to show in full screen
 
 class CameraFragment : BaseFragment() {
     override val viewModel: CameraViewModel by viewModels()
@@ -70,9 +69,15 @@ class CameraFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFullScreen()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
+        clearFullScreen()
     }
 
     private fun takePhoto() {
@@ -155,7 +160,6 @@ class CameraFragment : BaseFragment() {
     companion object {
         private const val TAG = "CameraFragment"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
                 Manifest.permission.CAMERA,
