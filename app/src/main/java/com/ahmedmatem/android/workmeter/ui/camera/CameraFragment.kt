@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
+import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -102,16 +103,29 @@ class CameraFragment : BaseFragment() {
         // TODO: try to capture image without saving it: Use OnImageCapturedCallback
         // Set up image capture listener, which is triggered after photo has
         // been taken
+//        imageCapture.takePicture(
+//            outputOptions,
+//            ContextCompat.getMainExecutor(requireContext()),
+//            object : ImageCapture.OnImageSavedCallback {
+//                override fun onError(exc: ImageCaptureException) {
+//                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+//                }
+//
+//                override fun onImageSaved(output: ImageCapture.OutputFileResults){
+//                    viewModel.savePhoto(args.worksheetId, output.savedUri.toString())
+//                }
+//            }
+//        )
         imageCapture.takePicture(
-            outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(exc: ImageCaptureException) {
-                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+            object : OnImageCapturedCallback() {
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    // TODO: navigate to captureConfirmationFragment with captured image
+                    
                 }
 
-                override fun onImageSaved(output: ImageCapture.OutputFileResults){
-                    viewModel.savePhoto(args.worksheetId, output.savedUri.toString())
+                override fun onError(exception: ImageCaptureException) {
+                    super.onError(exception)
                 }
             }
         )
