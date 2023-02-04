@@ -45,7 +45,7 @@
         android:layout_height="72dp"
         android:layout_marginBottom="-8dp"
         android:background="@drawable/rounded_background"
-        android:contentDescription="@string/desc_confirm_photo_button"
+        android:contentDescription="@string/desc_confirm_photo"
         android:src="@drawable/ic_baseline_done_24"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -56,12 +56,12 @@
 
 
     <ImageButton
-        android:id="@+id/photo_cancel_button"
+        android:id="@+id/resume_camera_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_background"
-        android:contentDescription="@string/desc_cancel_photo_button"
+        android:contentDescription="@string/desc_resume_camera"
         android:src="@drawable/ic_baseline_refresh_24"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

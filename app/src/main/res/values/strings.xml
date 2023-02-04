@@ -43,7 +43,7 @@
     <string name="worksheet_photo_description">Worksheet photo</string>
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
-    <string name="desc_confirm_photo_button">Confirm photo button</string>
-    <string name="desc_cancel_photo_button">Cancel photo button</string>
-    <string name="desc_close_camera">Close camera</string>
+    <string name="desc_confirm_photo">Confirm photo</string>
+    <string name="desc_resume_camera">Resume Camera</string>
+    <string name="desc_close_camera">Close Camera</string>
 </resources>

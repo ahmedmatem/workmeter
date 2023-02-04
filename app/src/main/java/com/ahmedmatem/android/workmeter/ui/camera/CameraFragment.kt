@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
 import com.ahmedmatem.android.workmeter.utils.clearFullScreen
 import com.ahmedmatem.android.workmeter.utils.setFullScreen
@@ -57,9 +58,20 @@ class CameraFragment : BaseFragment() {
             permissionsLauncher.launch(Manifest.permission.CAMERA)
         }
 
-        binding.captureButton.setOnClickListener {
-            Log.d(TAG, "takePhoto: Taking a picture.")
-            takePhoto()
+        binding.apply {
+            /**
+             * Set onClickListener for camera buttons
+             */
+            captureButton.setOnClickListener {
+                takePhoto()
+            }
+            closeButton.setOnClickListener {
+                viewModel.navigationCommand.value = NavigationCommand.Back
+            }
+            resumeCameraButton.setOnClickListener {
+                startCamera()
+                updateUI(previewPaused = false)
+            }
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -123,9 +135,7 @@ class CameraFragment : BaseFragment() {
                     stopCamera()
                     // TODO: Sound off taking a picture action
 
-                    binding.captureButton.visibility = View.GONE
-                    binding.photoOkButton.visibility = View.VISIBLE
-                    binding.photoCancelButton.visibility = View.VISIBLE
+                    updateUI(previewPaused = true)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -133,6 +143,22 @@ class CameraFragment : BaseFragment() {
                 }
             }
         )
+    }
+
+    private fun updateUI(previewPaused: Boolean) {
+        if(previewPaused) {
+            // hide Capture button
+            binding.captureButton.visibility = View.GONE
+            // show Ok and Resume Camera buttons
+            binding.photoOkButton.visibility = View.VISIBLE
+            binding.resumeCameraButton.visibility = View.VISIBLE
+        } else {
+            // show Capture button
+            binding.captureButton.visibility = View.VISIBLE
+            // hide Ok and Resume Camera buttons
+            binding.photoOkButton.visibility = View.GONE
+            binding.resumeCameraButton.visibility = View.GONE
+        }
     }
 
     private fun startCamera() {
