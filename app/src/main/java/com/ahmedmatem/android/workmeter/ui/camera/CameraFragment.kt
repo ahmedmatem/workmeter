@@ -15,17 +15,20 @@ import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
 import com.ahmedmatem.android.workmeter.utils.clearFullScreen
-import com.ahmedmatem.android.workmeter.utils.saveBitmapInExternalStorage
+import com.ahmedmatem.android.workmeter.utils.saveBitmapInGallery
 import com.ahmedmatem.android.workmeter.utils.setFullScreen
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class CameraFragment : BaseFragment() {
     override val viewModel: CameraViewModel by viewModels()
+
+    private val args: CameraFragmentArgs by navArgs()
 
     private val permissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
@@ -59,20 +62,28 @@ class CameraFragment : BaseFragment() {
             /**
              * Set onClickListener for camera buttons
              */
+
             captureButton.setOnClickListener {
                 takePhoto()
             }
+
             closeButton.setOnClickListener {
                 viewModel.navigationCommand.value = NavigationCommand.Back
             }
+
             resumeCameraButton.setOnClickListener {
                 startCamera()
                 updateUI(previewPaused = false)
             }
+
             photoOkButton.setOnClickListener {
-                // TODO: save photo on external storage and local database
                 bitmap?.let {bitmap ->
-                    saveBitmapInExternalStorage(bitmap, FILENAME_FORMAT, RELATIVE_PATH)
+                    // Save photo in Gallery
+                    val uri = saveBitmapInGallery(bitmap, FILENAME_FORMAT, RELATIVE_PATH)
+                    // Save photo in local database
+                    viewModel.savePhoto(args.worksheetId, uri.toString())
+                    // Navigate back
+                    viewModel.navigationCommand.value = NavigationCommand.Back
                 }
             }
         }
@@ -105,7 +116,6 @@ class CameraFragment : BaseFragment() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     bitmap = binding.viewFinder.bitmap
                     stopCamera()
-
                     // TODO: Set sound for taking a picture
 
                     updateUI(previewPaused = true)
