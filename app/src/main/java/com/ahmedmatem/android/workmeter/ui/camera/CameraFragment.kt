@@ -120,8 +120,12 @@ class CameraFragment : BaseFragment() {
             ContextCompat.getMainExecutor(requireContext()),
             object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
-                    // TODO: navigate to captureConfirmationFragment with captured image
-                    
+                    stopCamera()
+                    // TODO: Sound off taking a picture action
+
+                    binding.captureButton.visibility = View.GONE
+                    binding.photoOkButton.visibility = View.VISIBLE
+                    binding.photoCancelButton.visibility = View.VISIBLE
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -160,6 +164,12 @@ class CameraFragment : BaseFragment() {
                 Log.e(TAG, "Use case binding failed", exc)
             }
         }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    private fun stopCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+        cameraProvider.unbindAll()
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
