@@ -1,11 +1,10 @@
 package com.ahmedmatem.android.workmeter.ui.camera
 
 import android.Manifest
-import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,21 +15,17 @@ import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
 import com.ahmedmatem.android.workmeter.utils.clearFullScreen
+import com.ahmedmatem.android.workmeter.utils.saveBitmapInExternalStorage
 import com.ahmedmatem.android.workmeter.utils.setFullScreen
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class CameraFragment : BaseFragment() {
     override val viewModel: CameraViewModel by viewModels()
-
-    private val args: CameraFragmentArgs by navArgs()
 
     private val permissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()){ isGranted ->
@@ -45,6 +40,8 @@ class CameraFragment : BaseFragment() {
     private lateinit var binding: FragmentCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
+
+    private var bitmap: Bitmap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +69,12 @@ class CameraFragment : BaseFragment() {
                 startCamera()
                 updateUI(previewPaused = false)
             }
+            photoOkButton.setOnClickListener {
+                // TODO: save photo on external storage and local database
+                bitmap?.let {bitmap ->
+                    saveBitmapInExternalStorage(bitmap, FILENAME_FORMAT, RELATIVE_PATH)
+                }
+            }
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -94,52 +97,23 @@ class CameraFragment : BaseFragment() {
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
-        // Create time stamped name and MediaStore entry.
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.UK)
-            .format(System.currentTimeMillis())
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/Workmeter-Image")
-            }
-        }
-
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions
-            .Builder(requireContext().contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues)
-            .build()
-
-        // TODO: try to capture image without saving it: Use OnImageCapturedCallback
         // Set up image capture listener, which is triggered after photo has
         // been taken
-//        imageCapture.takePicture(
-//            outputOptions,
-//            ContextCompat.getMainExecutor(requireContext()),
-//            object : ImageCapture.OnImageSavedCallback {
-//                override fun onError(exc: ImageCaptureException) {
-//                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-//                }
-//
-//                override fun onImageSaved(output: ImageCapture.OutputFileResults){
-//                    viewModel.savePhoto(args.worksheetId, output.savedUri.toString())
-//                }
-//            }
-//        )
         imageCapture.takePicture(
             ContextCompat.getMainExecutor(requireContext()),
             object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
+                    bitmap = binding.viewFinder.bitmap
                     stopCamera()
-                    // TODO: Sound off taking a picture action
+
+                    // TODO: Set sound for taking a picture
 
                     updateUI(previewPaused = true)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    super.onError(exception)
+                    // TODO: Implement ImageCaptureException
+                    // ...
                 }
             }
         )
@@ -204,6 +178,7 @@ class CameraFragment : BaseFragment() {
 
     companion object {
         private const val TAG = "CameraFragment"
+        private const val RELATIVE_PATH = "Pictures/Workmeter-Image"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private val REQUIRED_PERMISSIONS =
             mutableListOf (

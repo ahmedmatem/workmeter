@@ -1,11 +1,15 @@
 package com.ahmedmatem.android.workmeter.utils
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageProxy
 import androidx.core.view.WindowCompat
@@ -13,7 +17,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 import java.nio.ByteBuffer
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Fragment.setFullScreen() {
     val window = requireActivity().window
@@ -69,4 +76,44 @@ fun ImageProxy.toBitmap(quality: Int = 75) : Bitmap? {
     yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), quality, out)
 
     return BitmapFactory.decodeByteArray(out.toByteArray(), 0, out.size())
+}
+
+/**
+ * Fragment extension function to save a bitmap in External Storage (device Gallery).
+ */
+fun Fragment.saveBitmapInExternalStorage(
+    bitmap: Bitmap,
+    fileNameFormat: String,
+    relativePath: String,
+    quality: Int = 100
+) {
+    // Create time stamped name and MediaStore entry.
+    val name = SimpleDateFormat(fileNameFormat, Locale.UK)
+        .format(System.currentTimeMillis())
+    val contentValues = ContentValues().apply {
+        put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+        put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            put(MediaStore.Images.Media.RELATIVE_PATH, relativePath)
+        }
+    }
+
+    val uri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        requireContext().contentResolver.insert(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            contentValues,
+            null
+        )
+    } else {
+        TODO("VERSION.SDK_INT < R")
+    }
+
+    try {
+        uri?.let {
+            val out: OutputStream? = requireContext().contentResolver.openOutputStream(it)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, quality, out)
+        }
+    } catch (e: Exception) {
+        TODO("Catch bitmap compress exception")
+    }
 }
