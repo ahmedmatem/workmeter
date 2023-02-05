@@ -1,6 +1,7 @@
 package com.ahmedmatem.android.workmeter.ui.camera
 
 import android.Manifest
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
@@ -10,12 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.browser.trusted.ScreenOrientation
 import androidx.camera.core.*
 import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView.Orientation
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
@@ -70,6 +73,7 @@ class CameraFragment : BaseFragment() {
             resumeCameraButton.setOnClickListener {
                 startCamera()
                 updateUI(previewPaused = false)
+                unlockScreen()
             }
 
             photoOkButton.setOnClickListener {
@@ -98,6 +102,7 @@ class CameraFragment : BaseFragment() {
         super.onDestroy()
         cameraExecutor.shutdown()
         clearFullScreen()
+        unlockScreen()
     }
 
     private fun takePhoto() {
@@ -115,6 +120,7 @@ class CameraFragment : BaseFragment() {
                     // TODO: Set sound for taking a picture
 
                     updateUI(previewPaused = true)
+                    lockScreen()
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -180,6 +186,14 @@ class CameraFragment : BaseFragment() {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission( requireContext(), it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun lockScreen() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    }
+
+    private fun unlockScreen() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     companion object {
