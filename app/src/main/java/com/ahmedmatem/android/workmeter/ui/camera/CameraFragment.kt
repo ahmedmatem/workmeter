@@ -67,10 +67,6 @@ class CameraFragment : BaseFragment() {
                 takePhoto()
             }
 
-            closeButton.setOnClickListener {
-                viewModel.navigationCommand.value = NavigationCommand.Back
-            }
-
             resumeCameraButton.setOnClickListener {
                 startCamera()
                 updateUI(previewPaused = false)

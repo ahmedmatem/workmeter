@@ -24,8 +24,8 @@ fun Fragment.setFullScreen() {
     windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH
 
 //    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars()) // hide both - navigation and status
-    windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
-//    windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
+//    windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
+    windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
     (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 }
 
@@ -38,7 +38,7 @@ fun Fragment.clearFullScreen() {
         WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH
     windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_BARS_BY_TOUCH
 
-    windowInsetsController.show(WindowInsetsCompat.Type.navigationBars())
+    windowInsetsController.show(WindowInsetsCompat.Type.statusBars())
     (requireActivity() as AppCompatActivity).supportActionBar?.show()
 }
 
