@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,20 +12,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.browser.trusted.ScreenOrientation
 import androidx.camera.core.*
 import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.RecyclerView.Orientation
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
 import com.ahmedmatem.android.workmeter.databinding.FragmentCameraBinding
 import com.ahmedmatem.android.workmeter.utils.clearFullScreen
 import com.ahmedmatem.android.workmeter.utils.saveBitmapInGallery
 import com.ahmedmatem.android.workmeter.utils.setFullScreen
+import com.ahmedmatem.android.workmeter.R
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -48,12 +48,15 @@ class CameraFragment : BaseFragment() {
     private lateinit var cameraExecutor: ExecutorService
 
     private var bitmap: Bitmap? = null
+    private lateinit var captureSound: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCameraBinding.inflate(inflater, container, false)
+
+        captureSound = MediaPlayer.create(requireContext(), R.raw.camera_shutter_click)
 
         if(allPermissionsGranted()){
             startCamera()
@@ -117,8 +120,8 @@ class CameraFragment : BaseFragment() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     bitmap = binding.viewFinder.bitmap
                     stopCamera()
-                    // TODO: Set sound for taking a picture
-
+                    /** Make a sound of clicking on camera capture button */
+                    captureSound.start()
                     updateUI(previewPaused = true)
                     lockScreen()
                 }
