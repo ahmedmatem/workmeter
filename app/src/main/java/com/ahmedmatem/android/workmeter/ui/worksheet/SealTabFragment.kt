@@ -1,12 +1,12 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ahmedmatem.android.workmeter.R
 import com.ahmedmatem.android.workmeter.base.BaseFragment
+import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.photosToList
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
 import com.ahmedmatem.android.workmeter.ui.login.afterTextChanged
@@ -69,9 +70,8 @@ class SealTabFragment : BaseFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.worksheetState.collect{
-                    val worksheet = it ?: return@collect
-                    binding.worksheet = worksheet
-                    adapter.submitList(worksheet.photosToList())
+                    binding.worksheet = it ?: return@collect
+                    adapter.submitList(it.photosToList())
                 }
             }
         }
