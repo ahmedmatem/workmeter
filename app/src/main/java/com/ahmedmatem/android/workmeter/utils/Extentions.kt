@@ -42,6 +42,12 @@ fun Fragment.clearFullScreen() {
     (requireActivity() as AppCompatActivity).supportActionBar?.show()
 }
 
+fun Fragment.deleteBitmapFromGallery(uri: Uri) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        requireContext().contentResolver.delete(uri, null)
+    }
+}
+
 /**
  * Fragment extension function to save a bitmap in External Storage.
  */

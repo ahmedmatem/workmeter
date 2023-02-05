@@ -17,6 +17,7 @@ import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.data.model.photosToList
 import com.ahmedmatem.android.workmeter.databinding.FragmentSealTabBinding
 import com.ahmedmatem.android.workmeter.ui.login.afterTextChanged
+import com.ahmedmatem.android.workmeter.utils.deleteBitmapFromGallery
 import kotlinx.coroutines.launch
 
 class SealTabFragment : BaseFragment() {
@@ -53,6 +54,7 @@ class SealTabFragment : BaseFragment() {
                 setMessage("Do you want to delete the image?")
                 setPositiveButton(getString(R.string.yes)) { _, _ ->
                     viewModel.deletePhoto(photo.uri)
+                    deleteBitmapFromGallery(Uri.parse(photo.uri))
                 }
                 setNegativeButton(getString(R.string.cancel)) { _, _ -> }
             }
