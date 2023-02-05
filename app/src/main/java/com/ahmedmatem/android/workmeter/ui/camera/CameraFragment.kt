@@ -17,6 +17,9 @@ import androidx.camera.core.ImageCapture.OnImageCapturedCallback
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
@@ -25,6 +28,7 @@ import com.ahmedmatem.android.workmeter.utils.clearFullScreen
 import com.ahmedmatem.android.workmeter.utils.saveBitmapInGallery
 import com.ahmedmatem.android.workmeter.utils.setFullScreen
 import com.ahmedmatem.android.workmeter.R
+import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -93,6 +97,17 @@ class CameraFragment : BaseFragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isCameraShutterVisible.collect { visible ->
+                    if(visible)
+                        binding.cameraShutter.visibility = View.VISIBLE
+                    else
+                        binding.cameraShutter.visibility = View.GONE
+                }
+            }
+        }
+
         return binding.root
     }
 
@@ -118,9 +133,12 @@ class CameraFragment : BaseFragment() {
             ContextCompat.getMainExecutor(requireContext()),
             object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
+                    /** Get bitmap from camera preview holder */
                     bitmap = binding.viewFinder.bitmap
+                    
+                    /** Steps on capture success */
+                    viewModel.runCaptureEffect(CAMERA_SHUTTER_EFFECT_DURATION)
                     stopCamera()
-                    /** Make a sound of clicking on camera capture button */
                     captureSound.start()
                     updateUI(previewPaused = true)
                     lockScreen()
@@ -203,6 +221,7 @@ class CameraFragment : BaseFragment() {
         private const val TAG = "CameraFragment"
         private const val RELATIVE_PATH = "Pictures/Workmeter-Image"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val CAMERA_SHUTTER_EFFECT_DURATION : Long = 100L
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
                 Manifest.permission.CAMERA,
