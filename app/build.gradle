@@ -92,8 +92,10 @@ dependencies {
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
-    // Cloud Firestore dependency library
+    // Cloud Firestore Database library
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    // Cloud Storage library
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     // CameraX dependencies
     implementation "androidx.camera:camera-core:${camerax_version}"
