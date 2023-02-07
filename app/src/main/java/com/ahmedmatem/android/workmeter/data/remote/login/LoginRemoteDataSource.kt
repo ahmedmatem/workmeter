@@ -5,10 +5,11 @@ import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.utils.await
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.java.KoinJavaComponent.inject
 import java.io.IOException
 
 class LoginRemoteDataSource {
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val auth: FirebaseAuth by inject(FirebaseAuth::class.java)
 
     suspend fun login(email: String, password: String): Result<LoggedInUser>{
         return try {
