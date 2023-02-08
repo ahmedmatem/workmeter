@@ -8,43 +8,53 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
+import com.ahmedmatem.android.workmeter.data.model.Drawing
+import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
+import com.ahmedmatem.android.workmeter.data.repository.DrawingRepository
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
 class WorksheetViewModel(
     private val siteId: String,
-    private var _worksheetId: String? ) : BaseViewModel() {
+    private var _worksheetId: String?,
+    private val loggedInUser: LoggedInUser
+) : BaseViewModel() {
 
-    private val repository: WorksheetRepository by inject(WorksheetRepository::class.java)
+    private val worksheetRepository: WorksheetRepository by inject(WorksheetRepository::class.java)
+    private val drawingRepository: DrawingRepository by inject(DrawingRepository::class.java)
 
     private var _location: String = ""
     private var _width: String = ""
     private var _height: String = ""
+
+    private val _drawings: MutableStateFlow<List<Drawing>?> = MutableStateFlow(null)
+    val drawings: StateFlow<List<Drawing>?> = _drawings.asStateFlow()
 
     private val _worksheetState: MutableStateFlow<Worksheet?> = MutableStateFlow(null)
     val worksheetState: StateFlow<Worksheet?> = _worksheetState
 
     init {
         loadWorksheet()
+        loadDrawings(siteId)
     }
 
     fun save(){
         viewModelScope.launch {
             _worksheetState.value =  _worksheetState.value!!
                 .assign(_location, _width, _height, _worksheetState.value!!.photos)
-            repository.save(_worksheetState.value!!)
+            worksheetRepository.save(_worksheetState.value!!)
         }
     }
 
     fun deletePhoto(photoUri: String) {
         viewModelScope.launch {
-            repository.deletePhoto(_worksheetId!!, photoUri)
+            worksheetRepository.deletePhoto(_worksheetId!!, photoUri)
         }
     }
 
@@ -68,15 +78,30 @@ class WorksheetViewModel(
 
     private fun loadWorksheet() {
         viewModelScope.launch {
-            _worksheetId?.let{ id ->
-                // Load existing worksheet from local database
-                repository.getWorksheetBy(id).collect { worksheet ->
-                    _worksheetState.value = worksheet
-                }
-            } ?: run {
-                val sealNum = repository.generateSealNum(siteId)
-                _worksheetState.value = Worksheet.default(siteId, sealNum)
+            /**
+             * If worksheet is not created yet - Create default worksheet and save it in local db.
+             */
+            if(_worksheetId == null) {
+                val sealNum = worksheetRepository.generateSealNum(siteId)
+                val default = Worksheet.default(siteId, sealNum)
+                _worksheetId = default.id
+                worksheetRepository.save(default)
             }
+            /**
+             * Bind worksheet state to changes in local db
+             */
+            worksheetRepository.getWorksheetBy(_worksheetId!!).collect { worksheet ->
+                _worksheetState.value = worksheet
+            }
+        }
+    }
+
+    private fun loadDrawings(siteId: String) {
+        viewModelScope.launch {
+            drawingRepository.getDrawings(siteId)
+                .collect {
+                    _drawings.value = it
+                }
         }
     }
 
@@ -92,8 +117,9 @@ class WorksheetViewModel(
                     val argsBundle = extras[DEFAULT_ARGS_KEY]
                     val siteId = argsBundle?.getString("siteId")!!
                     val worksheetId = argsBundle?.getString("worksheetId")
+                    val loggedInUser = argsBundle.getParcelable<LoggedInUser>("loggedInUserArgs")!!
                     if(modelClass.isAssignableFrom(WorksheetViewModel::class.java)){
-                        return WorksheetViewModel(siteId, worksheetId) as T
+                        return WorksheetViewModel(siteId, worksheetId, loggedInUser) as T
                     }
                     throw IllegalArgumentException("Unable to construct a viewModel class.")
                 }

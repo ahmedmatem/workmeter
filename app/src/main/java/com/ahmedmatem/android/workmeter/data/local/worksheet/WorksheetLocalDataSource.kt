@@ -19,7 +19,7 @@ class WorksheetLocalDataSource {
         return dao.count(siteId)
     }
 
-    fun getAllIncomplete(siteId: String) : Flow<List<com.ahmedmatem.android.workmeter.data.model.Worksheet>> {
+    fun getAllIncomplete(siteId: String) : Flow<List<Worksheet>> {
         return dao.allIncomplete(siteId)
     }
 

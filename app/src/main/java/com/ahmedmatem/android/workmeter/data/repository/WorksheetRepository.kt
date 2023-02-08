@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
 
-class WorksheetRepository() {
+class WorksheetRepository {
     private val localDataSource: WorksheetLocalDataSource by inject(WorksheetLocalDataSource::class.java)
     private val ioDispatcher = Dispatchers.IO
 
-    suspend fun getWorksheetBy(id: String) : Flow<Worksheet> {
+    fun getWorksheetBy(id: String) : Flow<Worksheet> {
         return flow {
             localDataSource.getById(id)
                 .flowOn(ioDispatcher)

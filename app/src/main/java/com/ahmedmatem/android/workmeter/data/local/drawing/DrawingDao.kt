@@ -5,12 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ahmedmatem.android.workmeter.data.model.Drawing
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DrawingDao {
 
     @Query("SELECT * FROM drawing WHERE site_id == :siteId")
-    fun getSiteDrawings(siteId: String) : List<Drawing>
+    fun getDrawings(siteId: String) : Flow<List<Drawing>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg drawings: Drawing)

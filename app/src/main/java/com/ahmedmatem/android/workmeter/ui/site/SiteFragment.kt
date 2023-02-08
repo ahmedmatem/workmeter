@@ -28,7 +28,7 @@ class SiteFragment : BaseFragment() {
     ): View {
         binding = FragmentSiteBinding.inflate(inflater, container, false)
         adapter = WorksheetListAdapter(WorksheetListAdapter.OnClickListener { worksheet ->
-            viewModel.navigateToWorksheet(worksheet.id)
+            viewModel.navigateToWorksheet(args.loggedInUserArgs, worksheet.id)
         })
 
         // TODO: Show summary for complete worksheets
@@ -45,7 +45,7 @@ class SiteFragment : BaseFragment() {
         }
 
         binding.fab.setOnClickListener {
-            viewModel.navigateToWorksheet()
+            viewModel.navigateToWorksheet(args.loggedInUserArgs)
         }
 
         return binding.root

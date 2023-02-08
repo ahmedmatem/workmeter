@@ -1,8 +1,10 @@
 package com.ahmedmatem.android.workmeter.data.remote.drawing
 
+import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.Drawing
 import com.ahmedmatem.android.workmeter.utils.await
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import org.koin.java.KoinJavaComponent.inject
@@ -22,6 +24,7 @@ class DrawingRemoteDataSource {
 
             userSitesCollectionQuerySnapshot.mapNotNull { siteDocSnapshot ->
                 val siteId = siteDocSnapshot.id
+
                 val drawingsCollectionPath = "$userSitesCollectionPath/$siteId/drawings"
                 val drawingsCollection = db.collection(drawingsCollectionPath)
                 val drawingsCollectionQuerySnapshot = drawingsCollection.get().await()
