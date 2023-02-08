@@ -1,6 +1,5 @@
 package com.ahmedmatem.android.workmeter.data.remote.drawing
 
-import android.util.Log
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.Drawing
 import com.ahmedmatem.android.workmeter.utils.await
@@ -23,9 +22,9 @@ class DrawingRemoteDataSource {
             val userSitesCollectionQuerySnapshot = userSitesCollection.get().await()
 
             userSitesCollectionQuerySnapshot.mapNotNull { siteDocSnapshot ->
-                val siteId = siteDocSnapshot.id
-
-                val drawingsCollectionPath = "$userSitesCollectionPath/$siteId/drawings"
+                val siteId = (siteDocSnapshot.data["siteRef"] as DocumentReference).get().await().id
+                val userSiteId = siteDocSnapshot.id
+                val drawingsCollectionPath = "$userSitesCollectionPath/$userSiteId/drawings"
                 val drawingsCollection = db.collection(drawingsCollectionPath)
                 val drawingsCollectionQuerySnapshot = drawingsCollection.get().await()
 

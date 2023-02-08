@@ -75,10 +75,16 @@ class SealTabFragment : BaseFragment() {
                     binding.worksheet = it ?: return@collect
                     adapter.submitList(it.photosToList())
                 }
+            }
+        }
 
-                viewModel.drawings.collect {
-                    val drawings = it ?: return@collect
-                    // TODO: Implement spinner
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModel.drawings.collect { drawings ->
+                    if(drawings.isNotEmpty()) {
+                        // TODO: Populate drawing spinner values
+                    }
                 }
             }
         }

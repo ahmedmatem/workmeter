@@ -33,8 +33,8 @@ class WorksheetViewModel(
     private var _width: String = ""
     private var _height: String = ""
 
-    private val _drawings: MutableStateFlow<List<Drawing>?> = MutableStateFlow(null)
-    val drawings: StateFlow<List<Drawing>?> = _drawings.asStateFlow()
+    private val _drawings: MutableStateFlow<List<Drawing>> = MutableStateFlow(emptyList())
+    val drawings: StateFlow<List<Drawing>> = _drawings.asStateFlow()
 
     private val _worksheetState: MutableStateFlow<Worksheet?> = MutableStateFlow(null)
     val worksheetState: StateFlow<Worksheet?> = _worksheetState

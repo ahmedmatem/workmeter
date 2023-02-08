@@ -1,5 +1,6 @@
 package com.ahmedmatem.android.workmeter.data.repository
 
+import android.util.Log
 import com.ahmedmatem.android.workmeter.data.local.drawing.DrawingLocalDataSource
 import com.ahmedmatem.android.workmeter.data.remote.drawing.DrawingRemoteDataSource
 import org.koin.java.KoinJavaComponent.inject
@@ -19,8 +20,8 @@ class DrawingRepository {
         withContext(coroutineContext) {
             when (val result: Result<List<Drawing>> = remoteDataSource.loadDrawings(username)) {
                 is Result.Success -> {
-                    val drawings = result.data.toTypedArray()
-                    localDataSource.insert(*drawings)
+                    Log.d("DEBUG", "refreshDrawings: ${result.data}")
+                    localDataSource.insert(*result.data.toTypedArray())
                 }
                 is Result.Error -> {
                     // TODO: Catch Error on refreshing drawings
