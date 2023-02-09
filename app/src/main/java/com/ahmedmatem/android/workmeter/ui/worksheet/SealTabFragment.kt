@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -22,7 +23,7 @@ import com.ahmedmatem.android.workmeter.utils.deleteBitmapFromGallery
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class SealTabFragment : BaseFragment() {
+class SealTabFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentSealTabBinding
 
@@ -64,13 +65,14 @@ class SealTabFragment : BaseFragment() {
                 .show()
         })
 
+        binding.drawingSpinner.onItemSelectedListener = this
+
         binding.photosRecyclerView.layoutManager =
             StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
         binding.photosRecyclerView.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 viewModel.worksheetState.collect {
                     binding.worksheet = it ?: return@collect
                     adapter.submitList(it.photosToList())
@@ -80,16 +82,29 @@ class SealTabFragment : BaseFragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 viewModel.drawings.collect { drawings ->
                     if(drawings.isNotEmpty()) {
-                        // TODO: Populate drawing spinner values
+                        val adapter = ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_item,
+                            drawings
+                        )
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        binding.drawingSpinner.adapter = adapter
                     }
                 }
             }
         }
 
         return binding.root
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        Log.d("DEBUG", "onItemSelected: ")
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        Log.d("DEBUG", "onNothingSelected: ")
     }
 
     companion object {

@@ -1,6 +1,5 @@
 package com.ahmedmatem.android.workmeter.ui.worksheet
 
-import android.util.Log
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.ahmedmatem.android.workmeter.base.BaseViewModel
 import com.ahmedmatem.android.workmeter.base.NavigationCommand
-import com.ahmedmatem.android.workmeter.data.model.Drawing
 import com.ahmedmatem.android.workmeter.data.model.LoggedInUser
 import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
@@ -17,6 +15,7 @@ import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -33,8 +32,8 @@ class WorksheetViewModel(
     private var _width: String = ""
     private var _height: String = ""
 
-    private val _drawings: MutableStateFlow<List<Drawing>> = MutableStateFlow(emptyList())
-    val drawings: StateFlow<List<Drawing>> = _drawings.asStateFlow()
+    private val _drawings: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
+    val drawings: StateFlow<List<String>> = _drawings.asStateFlow()
 
     private val _worksheetState: MutableStateFlow<Worksheet?> = MutableStateFlow(null)
     val worksheetState: StateFlow<Worksheet?> = _worksheetState
@@ -99,6 +98,11 @@ class WorksheetViewModel(
     private fun loadDrawings(siteId: String) {
         viewModelScope.launch {
             drawingRepository.getDrawings(siteId)
+                .map { drawingList ->
+                    drawingList.mapNotNull { drawing ->
+                        drawing.name
+                    }
+                }
                 .collect {
                     _drawings.value = it
                 }
