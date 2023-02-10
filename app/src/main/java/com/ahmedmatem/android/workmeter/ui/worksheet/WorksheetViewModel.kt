@@ -12,10 +12,7 @@ import com.ahmedmatem.android.workmeter.data.model.Worksheet
 import com.ahmedmatem.android.workmeter.data.model.assign
 import com.ahmedmatem.android.workmeter.data.repository.DrawingRepository
 import com.ahmedmatem.android.workmeter.data.repository.WorksheetRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -31,12 +28,16 @@ class WorksheetViewModel(
     private var _location: String = ""
     private var _width: String = ""
     private var _height: String = ""
+    private var _drawing: String? = null
 
     private val _drawings: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     val drawings: StateFlow<List<String>> = _drawings.asStateFlow()
 
     private val _worksheetState: MutableStateFlow<Worksheet?> = MutableStateFlow(null)
     val worksheetState: StateFlow<Worksheet?> = _worksheetState
+
+    private val _selectedDrawingIndex: MutableStateFlow<Int> = MutableStateFlow(0)
+    val selectedDrawingIndex: StateFlow<Int> = _selectedDrawingIndex
 
     init {
         loadWorksheet()
@@ -46,7 +47,7 @@ class WorksheetViewModel(
     fun save(){
         viewModelScope.launch {
             _worksheetState.value =  _worksheetState.value!!
-                .assign(_location, _width, _height, _worksheetState.value!!.photos)
+                .assign(_location, _width, _height, _worksheetState.value!!.photos, _drawing)
             worksheetRepository.save(_worksheetState.value!!)
         }
     }
@@ -67,6 +68,14 @@ class WorksheetViewModel(
 
     fun heightChanged(height: String) {
         _height = height
+    }
+
+    fun drawingChanged(position: Int) {
+        /**
+         * Position 0 is reserved for Spinner default value, playing hint role in the spinner.
+         * Real drawing's names start from position 1.
+         */
+        _drawing = if(position == 0) null else _drawings.value[position - 1]
     }
 
     fun navigateToCamera() {
@@ -91,8 +100,14 @@ class WorksheetViewModel(
              */
             worksheetRepository.getWorksheetBy(_worksheetId!!).collect { worksheet ->
                 _worksheetState.value = worksheet
+                // Save drawing name in the cache
+                _drawing = _worksheetState.value?.drawingUrl
             }
         }
+    }
+
+    fun getSelectedDrawingIndex() : Int {
+        return _drawings.value.indexOf(_drawing) + 1
     }
 
     private fun loadDrawings(siteId: String) {

@@ -83,14 +83,21 @@ class SealTabFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.drawings.collect { drawings ->
+                    Log.d("SEALTAB", "onCreateView: Drawings changed $drawings")
+                    val drawingListWithDefaultValue: ArrayList<String> = ArrayList()
+                    drawingListWithDefaultValue.add(0, "Select a drawing from the list.")
                     if(drawings.isNotEmpty()) {
-                        val adapter = ArrayAdapter(
-                            requireContext(),
-                            android.R.layout.simple_spinner_item,
-                            drawings
-                        )
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        binding.drawingSpinner.adapter = adapter
+                        drawingListWithDefaultValue.addAll(drawings)
+                    }
+                    val adapter = ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        drawingListWithDefaultValue
+                    )
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.drawingSpinner.adapter = adapter
+                    if(drawings.isNotEmpty()){
+                        binding.drawingSpinner.setSelection(viewModel.getSelectedDrawingIndex())
                     }
                 }
             }
@@ -100,7 +107,7 @@ class SealTabFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Log.d("DEBUG", "onItemSelected: ")
+        viewModel.drawingChanged(position)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

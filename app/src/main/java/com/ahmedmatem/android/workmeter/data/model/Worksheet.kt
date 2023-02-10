@@ -59,6 +59,7 @@ fun Worksheet.assign(
     width: String,
     height: String,
     photos: String,
+    drawingUrl: String? = null,
     isComplete: Boolean = false) : Worksheet {
     return Worksheet(
         id = id,
@@ -69,6 +70,7 @@ fun Worksheet.assign(
         width = width,
         height = height,
         photos = photos,
+        drawingUrl = drawingUrl,
         isComplete = isComplete
     )
 }
