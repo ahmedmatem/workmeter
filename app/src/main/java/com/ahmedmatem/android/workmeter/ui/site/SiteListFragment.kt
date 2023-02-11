@@ -23,7 +23,7 @@ class SiteListFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSiteListBinding.inflate(inflater, container, false)
         val adapter = SiteListAdapter(SiteListAdapter.OnClickListener{
             viewModel.navigateToSite(it)

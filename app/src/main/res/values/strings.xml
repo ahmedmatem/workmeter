@@ -46,4 +46,8 @@
     <string name="desc_confirm_photo">Confirm photo</string>
     <string name="desc_resume_camera">Resume Camera</string>
     <string name="desc_close_camera">Close Camera</string>
+    <string name="update_desc">Update</string>
+    <string name="schedule_work_desc">Schedule work</string>
+    <string name="update">UPDATE</string>
+    <string name="schedule_work_text">SCHEDULE WORK</string>
 </resources>

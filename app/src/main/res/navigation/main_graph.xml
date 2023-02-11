@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/siteListFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/siteListFragment"
@@ -15,8 +15,7 @@
             app:argType="com.ahmedmatem.android.workmeter.data.model.LoggedInUser" />
         <action
             android:id="@+id/action_siteListFragment_to_siteFragment"
-            app:destination="@id/siteFragment"
-            app:launchSingleTop="true" />
+            app:destination="@id/siteFragment" />
     </fragment>
     <fragment
         android:id="@+id/siteFragment"
@@ -64,5 +63,18 @@
         <argument
             android:name="worksheetId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.ahmedmatem.android.workmeter.ui.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <argument
+            android:name="loggedInUserArg"
+            app:argType="com.ahmedmatem.android.workmeter.data.model.LoggedInUser" />
+        <action
+            android:id="@+id/action_mainFragment_to_siteListFragment"
+            app:destination="@id/siteListFragment"
+            app:launchSingleTop="true" />
     </fragment>
 </navigation>

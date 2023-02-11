@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
             .findFragmentById(R.id.login_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(R.id.loginFormFragment, R.id.siteListFragment),
+            topLevelDestinationIds = setOf(R.id.loginFormFragment, R.id.mainFragment),
             fallbackOnNavigateUpListener = ::onSupportNavigateUp
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
