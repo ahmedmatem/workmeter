@@ -2,10 +2,12 @@ package com.ahmedmatem.android.workmeter.data.remote.drawing
 
 import com.ahmedmatem.android.workmeter.data.Result
 import com.ahmedmatem.android.workmeter.data.model.Drawing
-import com.ahmedmatem.android.workmeter.utils.await
+//import com.ahmedmatem.android.workmeter.utils.await
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import org.koin.java.KoinJavaComponent.inject
 import java.io.IOException
 
@@ -46,4 +48,20 @@ class DrawingRemoteDataSource {
         }
     }
 
+    fun downloadSiteDrawings(siteId: String, vararg drawings: String) = flow<ByteArray> {
+        val storageRef = storage.reference
+        val drawingPaths = mutableListOf<String>()
+        drawings.map { drawing ->
+            // Transform to path to the drawing in the storage
+            "site/$siteId/$drawing"
+        }.forEach { path ->
+            val drawingRef = storageRef.child(path)
+            val drawingBytes = drawingRef.getBytes(ONE_MEGABYTE).await()
+            emit(drawingBytes)
+        }
+    }
+
+    companion object {
+        const val ONE_MEGABYTE : Long = 1024 * 1024
+    }
 }

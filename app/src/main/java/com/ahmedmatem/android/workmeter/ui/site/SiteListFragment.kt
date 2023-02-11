@@ -1,15 +1,18 @@
 package com.ahmedmatem.android.workmeter.ui.site
 
-import androidx.lifecycle.ViewModelProvider
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahmedmatem.android.workmeter.base.BaseFragment
 import com.ahmedmatem.android.workmeter.databinding.FragmentSiteListBinding
+import com.ahmedmatem.android.workmeter.utils.saveBitmapInGallery
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SiteListFragment : BaseFragment() {
 
@@ -37,6 +40,19 @@ class SiteListFragment : BaseFragment() {
             val siteList = it ?: return@Observer
             adapter.submitList(siteList)
         })
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.drawing.collect { byteArray ->
+                    val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                    saveBitmapInGallery(
+                        bitmap,
+                        "yyyy-MM-dd-HH-mm-ss-SSS",
+                        "Pictures/Workmeter-Image"
+                    )
+                }
+            }
+        }
 
         return binding.root
     }

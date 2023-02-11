@@ -37,4 +37,8 @@ class DrawingRepository {
                 emit(it)
             }
     }
+
+    fun download(siteId: String, vararg drawings: String) =
+        remoteDataSource.downloadSiteDrawings(siteId, *drawings)
+            .flowOn(Dispatchers.IO)
 }
