@@ -43,13 +43,15 @@ class SiteListFragment : BaseFragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.drawing.collect { byteArray ->
-                    val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-                    saveBitmapInGallery(
-                        bitmap,
-                        "yyyy-MM-dd-HH-mm-ss-SSS",
-                        "Pictures/Workmeter-Image"
-                    )
+                viewModel.drawing.collect { listOfByteArray ->
+                    listOfByteArray.forEach { byteArray ->
+                        val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+                        saveBitmapInGallery(
+                            bitmap,
+                            "yyyy-MM-dd-HH-mm-ss-SSS",
+                            "Pictures/Workmeter-Image"
+                        )
+                    }
                 }
             }
         }

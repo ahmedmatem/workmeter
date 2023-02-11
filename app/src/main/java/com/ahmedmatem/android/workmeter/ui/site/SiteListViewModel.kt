@@ -20,8 +20,8 @@ class SiteListViewModel(private val args: SiteListFragmentArgs) : BaseViewModel(
     private val siteRepository: SiteRepository by inject(SiteRepository::class.java)
     private val drawingRepository: DrawingRepository by inject(DrawingRepository::class.java)
 
-    private val _drawing: MutableStateFlow<ByteArray> = MutableStateFlow(byteArrayOf())
-    val drawing: StateFlow<ByteArray> = _drawing
+    private val _drawing: MutableStateFlow<List<ByteArray>> = MutableStateFlow(emptyList())
+    val drawing: StateFlow<List<ByteArray>> = _drawing
 
     val siteList : LiveData<List<Site>> = siteRepository.sites
 

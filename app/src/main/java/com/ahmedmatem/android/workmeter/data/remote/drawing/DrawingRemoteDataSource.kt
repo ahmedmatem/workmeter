@@ -48,7 +48,8 @@ class DrawingRemoteDataSource {
         }
     }
 
-    fun downloadSiteDrawings(siteId: String, vararg drawings: String) = flow<ByteArray> {
+    fun downloadSiteDrawings(siteId: String, vararg drawings: String) = flow<List<ByteArray>> {
+        val byteArrayList = mutableListOf<ByteArray>()
         val storageRef = storage.reference
         val drawingPaths = mutableListOf<String>()
         drawings.map { drawing ->
@@ -57,8 +58,9 @@ class DrawingRemoteDataSource {
         }.forEach { path ->
             val drawingRef = storageRef.child(path)
             val drawingBytes = drawingRef.getBytes(ONE_MEGABYTE).await()
-            emit(drawingBytes)
+            byteArrayList.add(drawingBytes)
         }
+        emit(byteArrayList)
     }
 
     companion object {
